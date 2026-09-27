@@ -1,0 +1,18 @@
+{
+  "challenge_ids": [
+    "C-LEVEL_1-001",
+    "C-LEVEL_3-002",
+    "C-LEVEL_4-003",
+    "C-LEVEL_6-004",
+    "C-LEVEL_7-005"
+  ],
+  "difficulties": [
+    "LEVEL_1",
+    "LEVEL_3",
+    "LEVEL_4",
+    "LEVEL_6",
+    "LEVEL_7"
+  ],
+  "title": "local adversarial benchmark report",
+  "total_challenges": 5
+}

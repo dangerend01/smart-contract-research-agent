@@ -1,0 +1,31 @@
+{
+  "attacker_actions": [
+    "populate the participant list with many unique addresses",
+    "repeat the state-growth action before the victim call"
+  ],
+  "expected_behavior": "Gas cost should increase as attacker-controlled state grows before the victim operation.",
+  "experiment_id": "EXP-027",
+  "falsification_condition": "If the victim operation's gas use remains flat or bounded despite state growth, the hypothesis is weakened or falsified.",
+  "hypothesis_id": "H-001",
+  "measurements": {
+    "counterexamples": [],
+    "fuzz_cases": 25,
+    "growth_pattern": "large > medium > small",
+    "large_state": 697466,
+    "medium_state": 560000,
+    "small_state": 179566
+  },
+  "parameters": {
+    "fuzz_cases": 25,
+    "large_state": 250,
+    "medium_state": 100,
+    "small_state": 10
+  },
+  "setup": "Deploy the local demo contract, then populate it with increasing attacker-controlled participant counts before invoking the target function.",
+  "status": "generated",
+  "target_contract": "src/LocalDoSGasDemo.sol",
+  "test_strategy": "normal unit + boundary-value + repeated-operation + gas measurement + bounded fuzzing",
+  "victim_actions": [
+    "processAll()"
+  ]
+}

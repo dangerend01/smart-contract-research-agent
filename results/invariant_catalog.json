@@ -1,0 +1,33 @@
+[
+  {
+    "category": "unbounded-work",
+    "description": "User-controlled array or loop growth should not make a call prohibitively expensive for other participants.",
+    "evidence": [
+      "dynamic loop pattern detected",
+      "state array or mapping widened by user-controlled input"
+    ],
+    "id": "INV-001",
+    "impacted_functions": [
+      "contribute",
+      "checkpoint",
+      "settle",
+      "claim"
+    ],
+    "title": "Operation cost should not grow without bound with attacker-controlled state"
+  },
+  {
+    "category": "state-reachability",
+    "description": "State mutation paths must stay available for valid users while remaining bounded by the contract policy.",
+    "evidence": [
+      "state transitions identified in function bodies"
+    ],
+    "id": "INV-002",
+    "impacted_functions": [
+      "contribute",
+      "checkpoint",
+      "settle",
+      "claim"
+    ],
+    "title": "Critical transitions should remain reachable under legitimate conditions"
+  }
+]

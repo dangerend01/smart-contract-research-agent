@@ -1,0 +1,16 @@
+{
+  "challenge_count": 2,
+  "challenges": [
+    {
+      "challenge_id": "C-LEVEL_1-001",
+      "difficulty": "LEVEL_1",
+      "generation_seed": 8
+    },
+    {
+      "challenge_id": "C-LEVEL_4-002",
+      "difficulty": "LEVEL_4",
+      "generation_seed": 9
+    }
+  ],
+  "generated_at": "local"
+}

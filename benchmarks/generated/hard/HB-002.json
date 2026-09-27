@@ -1,0 +1,39 @@
+{
+  "available_functions": [
+    "enroll",
+    "settle"
+  ],
+  "challenge_id": "HB-002",
+  "compiler_configuration": {
+    "optimizer": false,
+    "via_ir": false
+  },
+  "contract_name": "QueueAmplifier",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract QueueAmplifier {\n    address[] internal waiting;\n    uint256 public settled;\n\n    function enroll(address account) external {\n        if (account != address(0)) {\n            waiting.push(account);\n        }\n    }\n\n    function settle() external {\n        uint256 count = waiting.length;\n        for (uint256 i = 0; i < count; ++i) {\n            address account = waiting[i];\n            if (account != address(0)) {\n                settled += 1;\n            }\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "INTERMEDIATE",
+  "difficulty_classification": "resource/gas/state-growth",
+  "expected_evidence_requirements": [
+    "queue-growth measurement",
+    "state delta explanation",
+    "function-ordering analysis",
+    "resource/timing evidence"
+  ],
+  "family": "queue-growth-gas-amplifier",
+  "initial_state": {
+    "settled": 0,
+    "waiting": []
+  },
+  "invariant": "processing cost should not scale with the number of previously accepted entries",
+  "mechanism_fingerprint": "state-growth->loop-amplification",
+  "public_objective": "Determine why the processing path becomes more expensive as the queue grows.",
+  "resource_model": {
+    "gas": "linear_in_queue_length",
+    "notes": "the settle loop grows with stored entries"
+  },
+  "seed": 1102
+}

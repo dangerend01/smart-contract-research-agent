@@ -1,0 +1,14 @@
+{
+  "challenge_id": "PH4-013",
+  "difficulty": "LEVEL_10",
+  "difficulty_classification": "resource amplification + state growth + multi-layer observation",
+  "evidence_requirements": [
+    "compare different tracker sizes",
+    "show nested-loop amplification",
+    "demonstrate the relationship between stored values and drain() cost"
+  ],
+  "invariant": "small attacker-controlled state growth should not cause a disproportionately larger operation cost later in the same lifecycle",
+  "mechanism": "resource amplification under state growth",
+  "mechanism_fingerprint": "state-growth->nested-loop-amplification",
+  "root_cause": "add() stores values and drain() multiplies each stored value by a modulo-derived loop count, turning small state growth into a disproportionate later cost explosion."
+}

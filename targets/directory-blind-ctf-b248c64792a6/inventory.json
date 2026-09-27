@@ -1,0 +1,17 @@
+{
+  "compiler_requirements": [
+    "^0.8.24"
+  ],
+  "contract_names": [
+    "BlindStateHistory",
+    "BlindStateHistoryTest"
+  ],
+  "imports": [],
+  "interfaces": [],
+  "libraries": [],
+  "primary_contract": "BlindStateHistory",
+  "solidity_files": [
+    "BlindStateHistory.sol",
+    "test/BlindStateHistory.t.sol"
+  ]
+}

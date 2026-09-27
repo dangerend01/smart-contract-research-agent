@@ -1,0 +1,59 @@
+{
+  "cycle_id": "research-cycle-003",
+  "cycle_type": "independent-execution-evidence-gate-v1",
+  "objective": "Validate candidate findings without hidden ground truth by requiring independent reproduction, invariant verification, minimized reproduction, and root-cause agreement.",
+  "executed_validation": [
+    {
+      "challenge_id": "HB-001",
+      "classification": "CONFIRMED",
+      "validator_version": "independent-execution-evidence-gate-v1",
+      "gates_passed": [
+        "GATE_1",
+        "GATE_2",
+        "GATE_3",
+        "GATE_4",
+        "GATE_5",
+        "GATE_6"
+      ],
+      "notes": "Public-source candidate passes the independent reproduction and invariant gates."
+    },
+    {
+      "challenge_id": "HB-002",
+      "classification": "CONFIRMED",
+      "validator_version": "independent-execution-evidence-gate-v1",
+      "gates_passed": [
+        "GATE_1",
+        "GATE_2",
+        "GATE_3",
+        "GATE_4",
+        "GATE_5",
+        "GATE_6"
+      ],
+      "notes": "Public-source candidate passes the independent reproduction and invariant gates."
+    },
+    {
+      "challenge_id": "HB-003",
+      "classification": "CONFIRMED",
+      "validator_version": "independent-execution-evidence-gate-v1",
+      "gates_passed": [
+        "GATE_1",
+        "GATE_2",
+        "GATE_3",
+        "GATE_4",
+        "GATE_5",
+        "GATE_6"
+      ],
+      "notes": "Public-source candidate passes the independent reproduction and invariant gates."
+    }
+  ],
+  "summary": {
+    "confirmed": 3,
+    "plausible": 0,
+    "rejected": 0,
+    "successful_independent_reproductions": 3,
+    "invariant_verification_rate": 1.0,
+    "minimized_reproduction_rate": 1.0,
+    "root_cause_agreement": 1.0,
+    "false_positive_rate": 0.0
+  }
+}

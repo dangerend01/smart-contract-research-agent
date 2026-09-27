@@ -1,0 +1,185 @@
+{
+  "candidate_id": "PH2-006-PH2-CANDIDATE",
+  "challenge_id": "PH2-006",
+  "classification": "CONFIRMED",
+  "differential_execution": {
+    "baseline": {
+      "state": {
+        "score": 0,
+        "window": 0
+      }
+    },
+    "meaningful_difference": true,
+    "resource_delta": {
+      "baseline": {
+        "score": 0,
+        "window": 0
+      },
+      "triggered": {
+        "score": 1,
+        "window": 1
+      }
+    },
+    "triggered": {
+      "state": {
+        "score": 1,
+        "window": 1
+      }
+    }
+  },
+  "evidence_gates": {
+    "GATE_1": true,
+    "GATE_2": true,
+    "GATE_3": true,
+    "GATE_4": true,
+    "GATE_5": true,
+    "GATE_6": true
+  },
+  "execution_replay": {
+    "actors": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "baseline": [
+      {
+        "call": {
+          "args": [],
+          "function": "record"
+        },
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "call_sequence": [
+      {
+        "args": [],
+        "function": "record"
+      },
+      {
+        "args": [],
+        "function": "sweep"
+      }
+    ],
+    "candidate_id": "PH2-006-PH2-CANDIDATE",
+    "challenge_id": "PH2-006",
+    "deployed_address": "0x4c5859f0f772848b2d91f1d83e2fe57935348029",
+    "events": [],
+    "execution_id": "exec-PH2-006-1790527343309",
+    "execution_results": [
+      {
+        "args": [],
+        "call": "record",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      },
+      {
+        "args": [],
+        "call": "sweep",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "gas_measurements": {
+      "record": 0,
+      "sweep": 0
+    },
+    "initial_state": {
+      "score": 0,
+      "window": 0
+    },
+    "return_data": {
+      "record": {},
+      "sweep": {}
+    },
+    "state_delta": {
+      "after": {
+        "score": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "window": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "before": {
+        "score": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "window": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "diff": {
+        "score": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "window": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "status": "REPRODUCED",
+    "trace": []
+  },
+  "expected_behavior": "Find the sequence/state interaction that turns the later sweep() cost into a function of prior recorded values and ordering.",
+  "final_state": {
+    "score": 1,
+    "window": 1
+  },
+  "initial_state": {
+    "score": 0,
+    "window": 0
+  },
+  "inputs": [
+    1,
+    2
+  ],
+  "invariant": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound",
+  "invariant_status": "violated",
+  "minimal_reproduction": {
+    "minimal": {
+      "inputs": [
+        1
+      ],
+      "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+      "sequence": [
+        "record()",
+        "sweep()"
+      ],
+      "state": [
+        "score"
+      ]
+    },
+    "original": {
+      "inputs": [
+        1,
+        2
+      ],
+      "sequence": [
+        "record()",
+        "sweep()"
+      ],
+      "state": [
+        "score",
+        "window"
+      ]
+    }
+  },
+  "observed_behavior": "history-dependent scheduling drift in the later sweep loop",
+  "reproduction_id": "repro-PH2-006-36eb1f28",
+  "result": "reproduced",
+  "root_cause_verification": {
+    "relevant_state": [
+      "score",
+      "window"
+    ],
+    "root_cause": "record() accumulates state and window; sweep() then folds prior values into its own bound, yielding nonuniform gas growth",
+    "semantic_agreement": true,
+    "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+    "symptom": "history-dependent scheduling drift in the later sweep loop",
+    "trigger": "record()",
+    "violated_invariant": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound"
+  },
+  "sequence": [
+    "record()",
+    "sweep()"
+  ]
+}

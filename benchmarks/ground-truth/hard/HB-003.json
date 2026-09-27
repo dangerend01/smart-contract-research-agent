@@ -1,0 +1,24 @@
+{
+  "challenge_id": "HB-003",
+  "difficulty": "ADVANCED",
+  "difficulty_classification": "deeper program analysis / storage-layout reasoning",
+  "evidence_requirements": [
+    "analyze the state transition from seed() to sweep()",
+    "show how values in packed storage feed the loop bound",
+    "show that the loop is state-derived rather than fixed",
+    "optionally inspect storage layout or compiler output to explain the packed layout"
+  ],
+  "invariant": "the resource cost should not be driven by compact storage values that only later become a loop bound",
+  "mechanism": "packed-state-driven loop bound",
+  "mechanism_fingerprint": "storage-layout->state-derived-loop-bound",
+  "reproducible_proof": {
+    "expected_result": "sweep() cost and processing amount track the sum of the stored packed values",
+    "steps": [
+      "seed() with different values",
+      "observe both storage and processed state",
+      "invoke sweep() and measure larger gas or processed growth",
+      "confirm the cost scales with the derived value rather than a trivial constant"
+    ]
+  },
+  "root_cause": "alpha, beta, and tick are packed and later used to derive the sweep loop bound through ledger entries. The challenge is not a textbook bug label; it requires understanding the merged storage behavior and how those values feed a later expensive loop."
+}

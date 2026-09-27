@@ -1,0 +1,14 @@
+{
+  "challenge_id": "PH4-012",
+  "difficulty": "LEVEL_9",
+  "difficulty_classification": "history-sensitive execution and state carry",
+  "evidence_requirements": [
+    "show cost shifts with different record() histories",
+    "prove the later bound is derived from old values",
+    "minimize the sequence to the smallest reproducer"
+  ],
+  "invariant": "a later evaluation should not become a hidden function of earlier call history and stored sequence values",
+  "mechanism": "state-history dependent behavior",
+  "mechanism_fingerprint": "history-growth->nonlinear-bound-amplification",
+  "root_cause": "record() accumulates history and window; evaluate() later folds both values into a loop bound. The resource cost becomes a function of earlier historical state and sequence."
+}

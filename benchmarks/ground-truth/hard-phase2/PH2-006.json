@@ -1,0 +1,25 @@
+{
+  "challenge_id": "PH2-006",
+  "difficulty": "LEVEL_6",
+  "difficulty_classification": "sequence/search/history+gas",
+  "evidence_requirements": [
+    "measure gas after different record() sequences",
+    "show the sweep() loop bound depends on window and stored history",
+    "confirm reverse ordering or different values shift the bound"
+  ],
+  "invariant": "a later loop should not become a function of arbitrarily accumulated historical inputs from prior user actions",
+  "mechanism": "sequence-history gas drift",
+  "mechanism_fingerprint": "state-history->nonlinear-loop-growth",
+  "reproducible_proof": {
+    "expected_result": "different call order or sequence lengths produce different sweep() costs and loop bounds",
+    "steps": [
+      "record(5)",
+      "record(10)",
+      "sweep(0)",
+      "record(15)",
+      "sweep(4)",
+      "compare the gas profile"
+    ]
+  },
+  "root_cause": "record() accumulates values into history and window. sweep() adds both the cumulative window and each stored value modulo 17 into its bound, so the later work scales superlinearly with the exact prior call sequence and history of values."
+}

@@ -1,0 +1,73 @@
+{
+  "analysis_package": {
+    "abi": [],
+    "bytecode": "not-generated",
+    "callbacks": [],
+    "compiler_metadata": {
+      "optimizer": "not-set",
+      "version": "0.8.24",
+      "via_ir": false
+    },
+    "delegatecalls": [],
+    "events": [],
+    "external_calls": [],
+    "functions": [],
+    "loops": [],
+    "modifiers": [],
+    "state_variables": [],
+    "storage_reads": [],
+    "storage_writes": []
+  },
+  "build_status": "OK",
+  "commit": null,
+  "compiler_version": "0.8.24",
+  "contracts": [
+    "BlindStateHistory",
+    "BlindStateHistoryTest"
+  ],
+  "foundry_configuration": {
+    "fmt": {
+      "line_length": 120
+    },
+    "profile": {
+      "default": {
+        "cache_path": "cache",
+        "libs": [
+          "lib"
+        ],
+        "out": "out",
+        "solc_version": "0.8.24",
+        "src": ".",
+        "test": "test"
+      }
+    }
+  },
+  "import_timestamp": "2026-09-27T18:18:40.036251+00:00",
+  "interfaces": [],
+  "libraries": [],
+  "license": "unknown",
+  "local_only": true,
+  "network_policy": "LOCAL_ONLY",
+  "project_type": {
+    "folders": {
+      "contracts": false,
+      "lib": false,
+      "src": false,
+      "test": true,
+      "tests": false
+    },
+    "has_foundry": true,
+    "has_hardhat": false,
+    "has_package_json": false,
+    "kind": "foundry"
+  },
+  "repository": "/tmp/blind_ctf",
+  "research_status": "READY",
+  "source_files": [
+    "BlindStateHistory.sol",
+    "test/BlindStateHistory.t.sol"
+  ],
+  "source_location": "/tmp/blind_ctf",
+  "source_type": "directory",
+  "target_id": "directory-blind-ctf-b248c64792a6"
+}

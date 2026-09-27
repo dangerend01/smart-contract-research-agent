@@ -1,0 +1,15 @@
+{
+  "affected_functions": [
+    "deposit",
+    "withdraw"
+  ],
+  "expected_security_invariant": "The local research baseline should remain callable and should not expose obvious unbounded work paths.",
+  "id": "H-999",
+  "mechanism": "The contract lacks obvious unbounded loops, user-controlled arrays, or expensive external-call paths in the initial analysis.",
+  "novelty_notes": "Similar to previously seen local hypothesis; duplicate classification applied.",
+  "predicted_failure_condition": "A deeper flow analysis or additional edge conditions may reveal a hidden cost amplifier not visible in the initial pass.",
+  "required_attacker_capability": "No obvious attacker capability identified from the static profile.",
+  "status": "duplicate",
+  "test_idea": "Review state transitions and repeated loops, then validate with minimal local fuzz or boundary tests.",
+  "title": "No obvious gas-griefing pattern detected in the current local contract profile"
+}

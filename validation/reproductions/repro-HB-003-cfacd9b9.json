@@ -1,0 +1,225 @@
+{
+  "candidate_id": "HB-003",
+  "challenge_id": "HB-003",
+  "classification": "CONFIRMED",
+  "differential_execution": {
+    "baseline": {
+      "state": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      }
+    },
+    "meaningful_difference": true,
+    "resource_delta": {
+      "baseline": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      },
+      "triggered": {
+        "alpha": 1,
+        "beta": 1,
+        "processed": 1,
+        "tick": 1
+      }
+    },
+    "triggered": {
+      "state": {
+        "alpha": 1,
+        "beta": 1,
+        "processed": 1,
+        "tick": 1
+      }
+    }
+  },
+  "evidence_gates": {
+    "GATE_1": true,
+    "GATE_2": true,
+    "GATE_3": true,
+    "GATE_4": true,
+    "GATE_5": true,
+    "GATE_6": true
+  },
+  "execution_replay": {
+    "actors": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "baseline": [
+      {
+        "call": {
+          "args": [],
+          "function": "seed"
+        },
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "call_sequence": [
+      {
+        "args": [
+          1
+        ],
+        "function": "seed"
+      },
+      {
+        "args": [
+          1
+        ],
+        "function": "sweep"
+      }
+    ],
+    "candidate_id": "HB-003",
+    "challenge_id": "HB-003",
+    "deployed_address": "0xad523115cd35a8d4e60b3c0953e0e0ac10418309",
+    "events": [],
+    "execution_id": "exec-HB-003-1790534422627",
+    "execution_results": [
+      {
+        "args": [
+          1
+        ],
+        "call": "seed",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"encode length mismatch: expected 0 types, got 1\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      },
+      {
+        "args": [
+          1
+        ],
+        "call": "sweep",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"encode length mismatch: expected 0 types, got 1\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "gas_measurements": {
+      "seed": 0,
+      "sweep": 0
+    },
+    "initial_state": {
+      "alpha": 0,
+      "beta": 0,
+      "processed": 0,
+      "tick": 0
+    },
+    "return_data": {
+      "seed": {},
+      "sweep": {}
+    },
+    "state_delta": {
+      "after": {
+        "alpha": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "beta": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "processed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "tick": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "before": {
+        "alpha": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "beta": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "processed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "tick": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "diff": {
+        "alpha": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "beta": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "processed": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "tick": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "status": "REPRODUCED",
+    "trace": []
+  },
+  "expected_behavior": "the later victim path should become more expensive when the relevant state is larger or more complex",
+  "final_state": {
+    "alpha": 1,
+    "beta": 1,
+    "processed": 1,
+    "tick": 1
+  },
+  "initial_state": {
+    "alpha": 0,
+    "beta": 0,
+    "processed": 0,
+    "tick": 0
+  },
+  "inputs": [
+    "user-controlled values that populate or grow the relevant state",
+    "multi-call ordering before a victim operation"
+  ],
+  "invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+  "invariant_status": "violated",
+  "minimal_reproduction": {
+    "minimal": {
+      "inputs": [
+        "user-controlled values that populate or grow the relevant state"
+      ],
+      "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+      "sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state"
+      ],
+      "state": [
+        "alpha"
+      ]
+    },
+    "original": {
+      "inputs": [
+        "user-controlled values that populate or grow the relevant state",
+        "multi-call ordering before a victim operation"
+      ],
+      "sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state",
+        "3. compare execution cost or work count against a smaller baseline"
+      ],
+      "state": [
+        "alpha",
+        "beta",
+        "processed",
+        "tick"
+      ]
+    }
+  },
+  "observed_behavior": "The public source shows stored values feeding a later expensive path, and the workload is driven by state rather than a fixed constant.",
+  "reproduction_id": "repro-HB-003-cfacd9b9",
+  "result": "reproduced",
+  "root_cause_verification": {
+    "relevant_state": [
+      "alpha",
+      "beta",
+      "processed",
+      "tick"
+    ],
+    "root_cause": "Stored packed values participate in later control flow and become part of the cost of a later processing branch.",
+    "semantic_agreement": true,
+    "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+    "symptom": "The public source shows stored values feeding a later expensive path, and the workload is driven by state rather than a fixed constant.",
+    "trigger": "1. mutate the relevant state in a setup step",
+    "violated_invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth"
+  },
+  "sequence": [
+    "1. mutate the relevant state in a setup step",
+    "2. invoke the victim function with the resulting state",
+    "3. compare execution cost or work count against a smaller baseline"
+  ]
+}

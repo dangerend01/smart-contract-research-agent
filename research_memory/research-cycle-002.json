@@ -1,0 +1,271 @@
+{
+  "coverage": {
+    "attacker_inputs": {
+      "participants length": "UNTESTED"
+    },
+    "external_calls": {
+      "transfer": "UNTESTED"
+    },
+    "functions": {
+      "addParticipant": "PARTIALLY_TESTED",
+      "processAll": "TESTED"
+    },
+    "loops": {
+      "for": "TESTED"
+    },
+    "revert_paths": {
+      "require(address != 0)": "TESTED"
+    },
+    "state_transitions": {
+      "participants push": "PARTIALLY_TESTED"
+    },
+    "state_variables": {
+      "participants": "UNTESTED",
+      "processed": "TESTED"
+    }
+  },
+  "cycle_id": "research-cycle-002",
+  "executed_experiments": [
+    {
+      "classification": "confirmed_mechanism",
+      "experiment_id": "EXP-076",
+      "feedback": {
+        "classification": "confirmed_mechanism",
+        "confirmed_observations": [
+          "Gas consumption increases with attacker-controlled state growth in the local experiment."
+        ],
+        "disproven_assumptions": [],
+        "experiment_id": "EXP-076",
+        "human_review_required": true,
+        "possible_follow_up_hypotheses": [
+          "Measure boundary values beyond the current state sizes.",
+          "Inspect whether the cost is dominated by loop length or other storage effects."
+        ],
+        "unexplored_parameters": [
+          "very large state sizes",
+          "repeated victim-call sequences",
+          "mixed attacker inputs"
+        ]
+      },
+      "hypothesis_id": "H-001",
+      "measurements": {
+        "counterexamples": [],
+        "fuzz_cases": 25,
+        "growth_pattern": "large > medium > small",
+        "large_state": 697466,
+        "medium_state": 560000,
+        "small_state": 179566
+      }
+    },
+    {
+      "classification": "confirmed_mechanism",
+      "experiment_id": "EXP-077",
+      "feedback": {
+        "classification": "confirmed_mechanism",
+        "confirmed_observations": [
+          "Gas consumption increases with attacker-controlled state growth in the local experiment."
+        ],
+        "disproven_assumptions": [],
+        "experiment_id": "EXP-077",
+        "human_review_required": true,
+        "possible_follow_up_hypotheses": [
+          "Measure boundary values beyond the current state sizes.",
+          "Inspect whether the cost is dominated by loop length or other storage effects."
+        ],
+        "unexplored_parameters": [
+          "very large state sizes",
+          "repeated victim-call sequences",
+          "mixed attacker inputs"
+        ]
+      },
+      "hypothesis_id": "H-001",
+      "measurements": {
+        "counterexamples": [],
+        "fuzz_cases": 25,
+        "growth_pattern": "large > medium > small",
+        "large_state": 697466,
+        "medium_state": 560000,
+        "small_state": 179566
+      }
+    },
+    {
+      "classification": "confirmed_mechanism",
+      "experiment_id": "EXP-078",
+      "feedback": {
+        "classification": "confirmed_mechanism",
+        "confirmed_observations": [
+          "Gas consumption increases with attacker-controlled state growth in the local experiment."
+        ],
+        "disproven_assumptions": [],
+        "experiment_id": "EXP-078",
+        "human_review_required": true,
+        "possible_follow_up_hypotheses": [
+          "Measure boundary values beyond the current state sizes.",
+          "Inspect whether the cost is dominated by loop length or other storage effects."
+        ],
+        "unexplored_parameters": [
+          "very large state sizes",
+          "repeated victim-call sequences",
+          "mixed attacker inputs"
+        ]
+      },
+      "hypothesis_id": "H-001",
+      "measurements": {
+        "counterexamples": [],
+        "fuzz_cases": 25,
+        "growth_pattern": "large > medium > small",
+        "large_state": 697466,
+        "medium_state": 560000,
+        "small_state": 179566
+      }
+    }
+  ],
+  "frontier": [
+    {
+      "adjusted_priority": 1.0,
+      "priority": 0.9,
+      "target": "state:participants"
+    },
+    {
+      "adjusted_priority": 0.8,
+      "priority": 0.8,
+      "target": "state_variables:participants"
+    },
+    {
+      "adjusted_priority": 0.6,
+      "priority": 0.95,
+      "target": "duplicate:state-growth mechanism"
+    },
+    {
+      "adjusted_priority": 0.6,
+      "priority": 0.6,
+      "target": "attacker_inputs:participants length"
+    },
+    {
+      "adjusted_priority": 0.6,
+      "priority": 0.6,
+      "target": "external_calls:transfer"
+    },
+    {
+      "adjusted_priority": 0.3,
+      "priority": 0.3,
+      "target": "function:addParticipant->processAll"
+    }
+  ],
+  "graph": {
+    "attack_surfaces": {
+      "participant growth": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "contracts": {
+      "LocalDoSGasDemo": {
+        "functions": [
+          "addParticipant",
+          "processAll"
+        ]
+      }
+    },
+    "edges": {
+      "LocalDoSGasDemo": {
+        "addParticipant": {
+          "attack_surfaces": [
+            "participant growth"
+          ],
+          "inputs": [
+            "address[] participants",
+            "participants length"
+          ],
+          "invariants": [
+            "gas should not scale with attacker-controlled state"
+          ],
+          "state_variables": [
+            "participants",
+            "processed"
+          ]
+        },
+        "processAll": {
+          "attack_surfaces": [
+            "participant growth"
+          ],
+          "inputs": [
+            "address[] participants",
+            "participants length"
+          ],
+          "invariants": [
+            "gas should not scale with attacker-controlled state"
+          ],
+          "state_variables": [
+            "participants",
+            "processed"
+          ]
+        }
+      }
+    },
+    "experiments": {},
+    "functions": {
+      "addParticipant": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "processAll": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "hypotheses": {
+      "Unbounded iteration over user-supplied state creates gas griefing -> external-call variant": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "Unbounded iteration over user-supplied state creates gas griefing -> failure-path variant": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "Unbounded iteration over user-supplied state creates gas griefing -> nested iteration variant": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "Unbounded iteration over user-supplied state creates gas griefing -> state-history variant": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "inputs": {
+      "address[] participants": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "participants length": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "invariants": {
+      "gas should not scale with attacker-controlled state": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "observed_mechanisms": {
+      "state growth increases gas": {
+        "contract": "LocalDoSGasDemo"
+      }
+    },
+    "state_variables": {
+      "participants": {
+        "contract": "LocalDoSGasDemo"
+      },
+      "processed": {
+        "contract": "LocalDoSGasDemo"
+      }
+    }
+  },
+  "hypotheses_generated": 4,
+  "minimized_counterexamples": 3,
+  "previous_cycle_used": true,
+  "strategies_used": [
+    {
+      "name": "state-growth strategy",
+      "score": 2.5
+    }
+  ],
+  "strategy": "state-growth strategy",
+  "timestamp": "2026-09-27T17:00:56.241204+00:00",
+  "unexplored_areas": [
+    "state-history strategy",
+    "external-call amplification",
+    "nested iteration"
+  ]
+}

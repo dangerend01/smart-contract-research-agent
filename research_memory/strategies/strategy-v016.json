@@ -1,0 +1,25 @@
+{
+  "learning_signals": [
+    {
+      "challenge_id": "HB-001",
+      "finding_status": "FALSE_POSITIVE",
+      "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+      "root_cause": "A previously stored value changes the future loop bound, so the execution cost is a function of prior state history rather than a single fixed bound."
+    },
+    {
+      "challenge_id": "HB-002",
+      "finding_status": "FALSE_POSITIVE",
+      "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+      "root_cause": "The victim function iterates over a stored queue, and each earlier acceptance grows the future cost of the same path."
+    },
+    {
+      "challenge_id": "HB-003",
+      "finding_status": "FALSE_POSITIVE",
+      "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+      "root_cause": "Stored packed values participate in later control flow and become part of the cost of a later processing branch."
+    }
+  ],
+  "objective": "Evidence-first deep researcher v2: prioritize reproducible evidence, invariant checks, and root-cause quality over plausible mechanism names.",
+  "strategy_version": "strategy-v016",
+  "timestamp": "local"
+}

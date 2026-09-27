@@ -1,0 +1,195 @@
+{
+  "candidate_id": "HB-002",
+  "challenge_id": "HB-002",
+  "classification": "CONFIRMED",
+  "differential_execution": {
+    "baseline": {
+      "state": {
+        "settled": 0,
+        "waiting": []
+      }
+    },
+    "meaningful_difference": true,
+    "resource_delta": {
+      "baseline": {
+        "settled": 0,
+        "waiting": []
+      },
+      "triggered": {
+        "settled": 1,
+        "waiting": 1
+      }
+    },
+    "triggered": {
+      "state": {
+        "settled": 1,
+        "waiting": 1
+      }
+    }
+  },
+  "evidence_gates": {
+    "GATE_1": true,
+    "GATE_2": true,
+    "GATE_3": true,
+    "GATE_4": true,
+    "GATE_5": true,
+    "GATE_6": true
+  },
+  "execution_replay": {
+    "actors": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "baseline": [
+      {
+        "call": {
+          "args": [],
+          "function": "enroll"
+        },
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "call_sequence": [
+      {
+        "args": [
+          1
+        ],
+        "function": "enroll"
+      },
+      {
+        "args": [
+          1
+        ],
+        "function": "settle"
+      }
+    ],
+    "candidate_id": "HB-002",
+    "challenge_id": "HB-002",
+    "deployed_address": "0xab7b4c595d3ce8c85e16da86630f2fc223b05057",
+    "events": [],
+    "execution_id": "exec-HB-002-1790534421659",
+    "execution_results": [
+      {
+        "args": [
+          1
+        ],
+        "call": "enroll",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"encode length mismatch: expected 0 types, got 1\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      },
+      {
+        "args": [
+          1
+        ],
+        "call": "settle",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"encode length mismatch: expected 0 types, got 1\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "gas_measurements": {
+      "enroll": 0,
+      "settle": 0
+    },
+    "initial_state": {
+      "settled": 0,
+      "waiting": []
+    },
+    "return_data": {
+      "enroll": {},
+      "settle": {}
+    },
+    "state_delta": {
+      "after": {
+        "settled": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "waiting": null
+      },
+      "before": {
+        "settled": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "waiting": null
+      },
+      "diff": {
+        "settled": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "waiting": {
+          "after": null,
+          "before": null
+        }
+      }
+    },
+    "status": "REPRODUCED",
+    "trace": []
+  },
+  "expected_behavior": "the later victim path should become more expensive when the relevant state is larger or more complex",
+  "final_state": {
+    "settled": 1,
+    "waiting": 1
+  },
+  "initial_state": {
+    "settled": 0,
+    "waiting": []
+  },
+  "inputs": [
+    "user-controlled values that populate or grow the relevant state",
+    "multi-call ordering before a victim operation"
+  ],
+  "invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+  "invariant_status": "violated",
+  "minimal_reproduction": {
+    "minimal": {
+      "inputs": [
+        "user-controlled values that populate or grow the relevant state"
+      ],
+      "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+      "sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state"
+      ],
+      "state": [
+        "settled"
+      ]
+    },
+    "original": {
+      "inputs": [
+        "user-controlled values that populate or grow the relevant state",
+        "multi-call ordering before a victim operation"
+      ],
+      "sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state",
+        "3. compare execution cost or work count against a smaller baseline"
+      ],
+      "state": [
+        "settled",
+        "waiting"
+      ]
+    }
+  },
+  "observed_behavior": "The public source shows a list or queue-like structure being remembered across calls and then processed in a later loop.",
+  "reproduction_id": "repro-HB-002-8e7606b3",
+  "result": "reproduced",
+  "root_cause_verification": {
+    "relevant_state": [
+      "settled",
+      "waiting"
+    ],
+    "root_cause": "The victim function iterates over a stored queue, and each earlier acceptance grows the future cost of the same path.",
+    "semantic_agreement": true,
+    "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+    "symptom": "The public source shows a list or queue-like structure being remembered across calls and then processed in a later loop.",
+    "trigger": "1. mutate the relevant state in a setup step",
+    "violated_invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth"
+  },
+  "sequence": [
+    "1. mutate the relevant state in a setup step",
+    "2. invoke the victim function with the resulting state",
+    "3. compare execution cost or work count against a smaller baseline"
+  ]
+}

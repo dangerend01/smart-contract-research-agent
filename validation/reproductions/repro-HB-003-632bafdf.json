@@ -1,0 +1,239 @@
+{
+  "candidate_id": "bad-candidate",
+  "challenge_id": "HB-003",
+  "classification": "REJECTED",
+  "differential_execution": {
+    "baseline": {
+      "state": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      }
+    },
+    "meaningful_difference": false,
+    "resource_delta": {
+      "baseline": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      },
+      "triggered": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      }
+    },
+    "triggered": {
+      "state": {
+        "alpha": 0,
+        "beta": 0,
+        "processed": 0,
+        "tick": 0
+      }
+    }
+  },
+  "evidence_gates": {
+    "GATE_1": true,
+    "GATE_2": true,
+    "GATE_3": true,
+    "GATE_4": true,
+    "GATE_5": true,
+    "GATE_6": false
+  },
+  "execution_replay": {
+    "actors": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "baseline": [
+      {
+        "call": {
+          "args": [],
+          "function": "seed"
+        },
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "call_sequence": [
+      {
+        "args": [],
+        "function": "callback"
+      },
+      {
+        "args": [],
+        "function": "sweep"
+      }
+    ],
+    "candidate_id": "bad-candidate",
+    "challenge_id": "HB-003",
+    "deployed_address": "0x5d42ebdbba61412295d7b0302d6f50ac449ddb4f",
+    "events": [],
+    "execution_id": "exec-HB-003-1790534419410",
+    "execution_results": [
+      {
+        "args": [],
+        "call": "callback",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      },
+      {
+        "args": [],
+        "call": "sweep",
+        "result": {
+          "gas_used": "0x5b19",
+          "receipt": {
+            "blockHash": "0xb95c2d04aab53c234fb008d25a21260e2ba0df36e7286a86d5525502121248f4",
+            "blockNumber": "0xb0",
+            "contractAddress": null,
+            "cumulativeGasUsed": "0x5b19",
+            "effectiveGasPrice": "0x9",
+            "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "gasUsed": "0x5b19",
+            "logs": [],
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "status": "0x1",
+            "to": "0x5d42ebdbba61412295d7b0302d6f50ac449ddb4f",
+            "transactionHash": "0x325a23d5d1c0fc95311d3145d965df70bf2d468df0517710f5e343eee8844ffe",
+            "transactionIndex": "0x0",
+            "type": "0x2"
+          },
+          "status": "success",
+          "tx_hash": "0x325a23d5d1c0fc95311d3145d965df70bf2d468df0517710f5e343eee8844ffe"
+        }
+      }
+    ],
+    "gas_measurements": {
+      "callback": 0,
+      "sweep": "0x5b19"
+    },
+    "initial_state": {
+      "alpha": 0,
+      "beta": 0,
+      "processed": 0,
+      "tick": 0
+    },
+    "return_data": {
+      "callback": {},
+      "sweep": {
+        "blockHash": "0xb95c2d04aab53c234fb008d25a21260e2ba0df36e7286a86d5525502121248f4",
+        "blockNumber": "0xb0",
+        "contractAddress": null,
+        "cumulativeGasUsed": "0x5b19",
+        "effectiveGasPrice": "0x9",
+        "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "gasUsed": "0x5b19",
+        "logs": [],
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "status": "0x1",
+        "to": "0x5d42ebdbba61412295d7b0302d6f50ac449ddb4f",
+        "transactionHash": "0x325a23d5d1c0fc95311d3145d965df70bf2d468df0517710f5e343eee8844ffe",
+        "transactionIndex": "0x0",
+        "type": "0x2"
+      }
+    },
+    "state_delta": {
+      "after": {
+        "alpha": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "beta": null,
+        "processed": null,
+        "tick": null
+      },
+      "before": {
+        "alpha": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "beta": null,
+        "processed": null,
+        "tick": null
+      },
+      "diff": {
+        "alpha": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "beta": {
+          "after": null,
+          "before": null
+        },
+        "processed": {
+          "after": null,
+          "before": null
+        },
+        "tick": {
+          "after": null,
+          "before": null
+        }
+      }
+    },
+    "status": "REPRODUCED",
+    "trace": []
+  },
+  "expected_behavior": "the later execution path should become more expensive when relevant state grows",
+  "final_state": {
+    "alpha": 0,
+    "beta": 0,
+    "processed": 0,
+    "tick": 0
+  },
+  "initial_state": {
+    "alpha": 0,
+    "beta": 0,
+    "processed": 0,
+    "tick": 0
+  },
+  "inputs": [
+    "fallback callback"
+  ],
+  "invariant": "reentrancy should not happen",
+  "invariant_status": "violated",
+  "minimal_reproduction": {
+    "minimal": {
+      "inputs": [
+        "fallback callback"
+      ],
+      "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+      "sequence": [
+        "callback()",
+        "sweep()"
+      ],
+      "state": [
+        "ledger"
+      ]
+    },
+    "original": {
+      "inputs": [
+        "fallback callback"
+      ],
+      "sequence": [
+        "callback()",
+        "sweep()"
+      ],
+      "state": [
+        "ledger"
+      ]
+    }
+  },
+  "observed_behavior": "the fallback triggers unexpectedly",
+  "reproduction_id": "repro-HB-003-632bafdf",
+  "result": "contradicted",
+  "root_cause_verification": {
+    "relevant_state": [
+      "ledger"
+    ],
+    "root_cause": "an unrelated fallback call can repeatedly re-enter and drain tokens",
+    "semantic_agreement": false,
+    "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+    "symptom": "the fallback triggers unexpectedly",
+    "trigger": "callback()",
+    "violated_invariant": "reentrancy should not happen"
+  },
+  "sequence": [
+    "callback()",
+    "sweep()"
+  ]
+}

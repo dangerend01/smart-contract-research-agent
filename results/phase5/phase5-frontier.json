@@ -1,0 +1,43 @@
+{
+  "benchmark": "hard-phase4",
+  "frontier": [
+    {
+      "priority": 0.95,
+      "reason": "Strongest remaining leverage is where state carry and optimizer-sensitive control flow interact.",
+      "target": "state-history + compiler-sensitive control flow"
+    },
+    {
+      "priority": 0.9,
+      "reason": "The selected Phase 4 ABI/storage case remains the cleanest local candidate for a cross-layer semantic difference.",
+      "target": "ABI/storage boundary + calldata-derived loop bound"
+    },
+    {
+      "priority": 0.85,
+      "reason": "The earliest trace divergence is the most reliable source of a real deep-EVM mechanism explanation.",
+      "target": "trace divergence during the first meaningful loop or slot operation"
+    }
+  ],
+  "phase": "PHASE5",
+  "selected_challenges": [
+    {
+      "challenge_id": "PH4-011",
+      "family": "cross-function-emergent-behavior",
+      "layer": "bytecode-analysis"
+    },
+    {
+      "challenge_id": "PH4-012",
+      "family": "state-history-dependent-behavior",
+      "layer": "bytecode-analysis"
+    },
+    {
+      "challenge_id": "PH4-013",
+      "family": "resource-amplification",
+      "layer": "bytecode-analysis"
+    },
+    {
+      "challenge_id": "PH4-014",
+      "family": "abi-storage-edge-cases",
+      "layer": "bytecode-analysis"
+    }
+  ]
+}

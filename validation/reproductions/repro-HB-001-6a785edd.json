@@ -1,0 +1,217 @@
+{
+  "candidate_id": "cand-hb-001",
+  "challenge_id": "HB-001",
+  "classification": "CONFIRMED",
+  "differential_execution": {
+    "baseline": {
+      "state": {
+        "prepared": 0,
+        "processed": 0
+      }
+    },
+    "meaningful_difference": true,
+    "resource_delta": {
+      "baseline": {
+        "prepared": 0,
+        "processed": 0
+      },
+      "triggered": {
+        "prepared": 1,
+        "processed": 0
+      }
+    },
+    "triggered": {
+      "state": {
+        "prepared": 1,
+        "processed": 0
+      }
+    }
+  },
+  "evidence_gates": {
+    "GATE_1": true,
+    "GATE_2": true,
+    "GATE_3": true,
+    "GATE_4": true,
+    "GATE_5": true,
+    "GATE_6": true
+  },
+  "execution_replay": {
+    "actors": [
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+    ],
+    "baseline": [
+      {
+        "call": {
+          "args": [],
+          "function": "prepare"
+        },
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      }
+    ],
+    "call_sequence": [
+      {
+        "args": [
+          "delta"
+        ],
+        "function": "prepare"
+      },
+      {
+        "args": [],
+        "function": "run"
+      }
+    ],
+    "candidate_id": "cand-hb-001",
+    "challenge_id": "HB-001",
+    "deployed_address": "0x26b862f640357268bd2d9e95bc81553a2aa81d7e",
+    "events": [],
+    "execution_id": "exec-HB-001-1790534418104",
+    "execution_results": [
+      {
+        "args": [
+          "delta"
+        ],
+        "call": "prepare",
+        "result": {
+          "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"encode length mismatch: expected 0 types, got 1\"}],\"warnings\":[]}",
+          "status": "reverted"
+        }
+      },
+      {
+        "args": [],
+        "call": "run",
+        "result": {
+          "gas_used": "0x5b48",
+          "receipt": {
+            "blockHash": "0x4e8f14b946c79b5a3aa7ea97d553de9508d2e658d48f57526b18ac78e0b87910",
+            "blockNumber": "0xae",
+            "contractAddress": null,
+            "cumulativeGasUsed": "0x5b48",
+            "effectiveGasPrice": "0x9",
+            "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "gasUsed": "0x5b48",
+            "logs": [],
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "status": "0x1",
+            "to": "0x26b862f640357268bd2d9e95bc81553a2aa81d7e",
+            "transactionHash": "0x607970ec0297cd664d7a74121f803b2c8495c5d50ed7658072ef13e2e71635d3",
+            "transactionIndex": "0x0",
+            "type": "0x2"
+          },
+          "status": "success",
+          "tx_hash": "0x607970ec0297cd664d7a74121f803b2c8495c5d50ed7658072ef13e2e71635d3"
+        }
+      }
+    ],
+    "gas_measurements": {
+      "prepare": 0,
+      "run": "0x5b48"
+    },
+    "initial_state": {
+      "prepared": 0,
+      "processed": 0
+    },
+    "return_data": {
+      "prepare": {},
+      "run": {
+        "blockHash": "0x4e8f14b946c79b5a3aa7ea97d553de9508d2e658d48f57526b18ac78e0b87910",
+        "blockNumber": "0xae",
+        "contractAddress": null,
+        "cumulativeGasUsed": "0x5b48",
+        "effectiveGasPrice": "0x9",
+        "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+        "gasUsed": "0x5b48",
+        "logs": [],
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "status": "0x1",
+        "to": "0x26b862f640357268bd2d9e95bc81553a2aa81d7e",
+        "transactionHash": "0x607970ec0297cd664d7a74121f803b2c8495c5d50ed7658072ef13e2e71635d3",
+        "transactionIndex": "0x0",
+        "type": "0x2"
+      }
+    },
+    "state_delta": {
+      "after": {
+        "prepared": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "processed": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "before": {
+        "prepared": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "processed": "0x0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "diff": {
+        "prepared": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "processed": {
+          "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    "status": "REPRODUCED",
+    "trace": []
+  },
+  "expected_behavior": "the later victim path should become more expensive when relevant state grows",
+  "final_state": {
+    "prepared": 1,
+    "processed": 0
+  },
+  "initial_state": {
+    "prepared": 0,
+    "processed": 0
+  },
+  "inputs": [
+    "delta values injected before run()"
+  ],
+  "invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+  "invariant_status": "violated",
+  "minimal_reproduction": {
+    "minimal": {
+      "inputs": [
+        "delta values injected before run()"
+      ],
+      "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+      "sequence": [
+        "prepare(delta)",
+        "run()"
+      ],
+      "state": [
+        "prepared"
+      ]
+    },
+    "original": {
+      "inputs": [
+        "delta values injected before run()"
+      ],
+      "sequence": [
+        "prepare(delta)",
+        "run()"
+      ],
+      "state": [
+        "prepared"
+      ]
+    }
+  },
+  "observed_behavior": "the later execution path depends on previous state",
+  "reproduction_id": "repro-HB-001-6a785edd",
+  "result": "reproduced",
+  "root_cause_verification": {
+    "relevant_state": [
+      "prepared"
+    ],
+    "root_cause": "a previously stored value changes the future loop bound, so the execution cost is a function of prior state history rather than a single fixed bound.",
+    "semantic_agreement": true,
+    "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+    "symptom": "the later execution path depends on previous state",
+    "trigger": "prepare(delta)",
+    "violated_invariant": "execution should not become substantially more expensive because of prior attacker-controlled state growth"
+  },
+  "sequence": [
+    "prepare(delta)",
+    "run()"
+  ]
+}

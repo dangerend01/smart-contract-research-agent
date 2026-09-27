@@ -1,0 +1,49 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis"
+  ],
+  "available_functions": [
+    "prepare",
+    "commit"
+  ],
+  "challenge_id": "PH3-010",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": true
+  },
+  "contract_name": "AbiYulSlotAmbiguity",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract AbiYulSlotAmbiguity {\n    uint256 public slotA;\n    uint256 public slotB;\n    uint256 public processed;\n\n    function prepare(uint256 left, uint256 right) external {\n        slotA = left;\n        slotB = right;\n        assembly {\n            sstore(0x40, left)\n            sstore(0x41, right)\n        }\n    }\n\n    function commit(bytes calldata data) external {\n        uint256 offset;\n        assembly {\n            offset := calldataload(4)\n        }\n\n        uint256 bound = (slotA + slotB + offset) % 257;\n        if (data.length > 0) {\n            bound += uint256(uint8(data[0]));\n        }\n\n        for (uint256 i = 0; i < bound; ++i) {\n            processed += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_10",
+  "difficulty_classification": "ABI + EVM + Yul/IR + bytecode depth",
+  "expected_evidence_requirements": [
+    "state plus calldata trace",
+    "Yul/IR or assembly explanation",
+    "bytecode or opcode evidence when necessary",
+    "runtime reproduction with a minimized input"
+  ],
+  "family": "abi-yul-slot-ambiguity",
+  "initial_state": {
+    "processed": 0,
+    "slotA": 0,
+    "slotB": 0
+  },
+  "invariant": "the execution cost should not silently depend on raw calldata and storage-slot aliasing hidden behind assembly-level data interpretation",
+  "mechanism_fingerprint": "raw-calldata+assembly-slot-alias->loop-bound-amplification",
+  "public_objective": "Explain why source-level reasoning is insufficient and why calldata and storage-slot state together determine the later execution cost.",
+  "resource_model": {
+    "gas": "calldata_and_slot_derived",
+    "notes": "the loop bound depends on calldata offset and storage aliasing hidden from source-level reasoning"
+  },
+  "seed": 3010
+}

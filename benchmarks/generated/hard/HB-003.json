@@ -1,0 +1,42 @@
+{
+  "available_functions": [
+    "seed",
+    "sweep"
+  ],
+  "challenge_id": "HB-003",
+  "compiler_configuration": {
+    "optimizer": false,
+    "storage_layout_focus": true,
+    "via_ir": false
+  },
+  "contract_name": "PackedStorageDrift",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract PackedStorageDrift {\n    uint128 public alpha;\n    uint128 public beta;\n    uint64 public tick;\n    uint256[] internal ledger;\n    uint256 public processed;\n\n    function seed(uint128 a, uint128 b, uint64 t) external {\n        alpha = a;\n        beta = b;\n        tick = t;\n        if (a != 0 && b != 0) {\n            ledger.push(uint256(a) + uint256(b) + uint256(t));\n        }\n    }\n\n    function sweep() external {\n        uint256 size = ledger.length;\n        for (uint256 i = 0; i < size; ++i) {\n            processed += ledger[i];\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "ADVANCED",
+  "difficulty_classification": "deeper program analysis / storage-layout reasoning",
+  "expected_evidence_requirements": [
+    "state transition trace",
+    "storage interpretation evidence",
+    "invariant explanation",
+    "compiled-layout or slot reasoning"
+  ],
+  "family": "packed-storage-drift",
+  "initial_state": {
+    "alpha": 0,
+    "beta": 0,
+    "processed": 0,
+    "tick": 0
+  },
+  "invariant": "resource use should not be driven by packed-state values that are not directly tied to the intended control flow",
+  "mechanism_fingerprint": "storage-layout->state-derived-loop-bound",
+  "public_objective": "Explain the origin of the execution cost growth and why it is tied to specific state values.",
+  "resource_model": {
+    "gas": "state_layout_and_loop_bound_dependent",
+    "notes": "packed values are written and later used to size a loop"
+  },
+  "seed": 1103
+}

@@ -1,0 +1,25 @@
+{
+  "challenge_id": "HB-001",
+  "difficulty": "INTERMEDIATE",
+  "difficulty_classification": "multi-function/state-history",
+  "evidence_requirements": [
+    "call sequence: prepare(x) then run()",
+    "state snapshot showing prepared increases before loop execution",
+    "gas increase as prepared increases",
+    "clear statement that the execution loop bound is derived from historical state"
+  ],
+  "invariant": "processing cost should not be tied to unrelated historical state drift",
+  "mechanism": "sequence-dependent loop amplification",
+  "mechanism_fingerprint": "state-history->loop-bound-coupling",
+  "reproducible_proof": {
+    "expected_result": "run() with larger prepared state consumes more gas and increases processed by a larger amount",
+    "steps": [
+      "prepare(10)",
+      "run()",
+      "prepare(200)",
+      "run()",
+      "compare gas or loop count"
+    ]
+  },
+  "root_cause": "the prepare() function stores a value in prepared, and the later run() function uses that stored value as its loop bound. The cost therefore depends on historical state evolution rather than the current control-flow alone."
+}

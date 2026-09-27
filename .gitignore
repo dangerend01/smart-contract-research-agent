@@ -1,0 +1,24 @@
+# Foundry / Solidity
+cache/
+out/
+broadcast/
+coverage/
+coverage.json
+foundry.lock
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+*.pyo
+
+# Local environment
+.env
+.env.*
+
+# Editors
+.vscode/
+.DS_Store
+
+# Dependency directories kept via git if intentionally added
+# lib/ is intentionally tracked for reproducible setups

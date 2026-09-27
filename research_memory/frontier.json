@@ -1,0 +1,32 @@
+[
+  {
+    "category": "state_variables",
+    "context": {
+      "contract": "LocalDoSGasDemo",
+      "cycle": 1
+    },
+    "priority": 0.8,
+    "reason": "state_variables is not yet covered by the local evidence base.",
+    "target": "state_variables:participants"
+  },
+  {
+    "category": "attacker_inputs",
+    "context": {
+      "contract": "LocalDoSGasDemo",
+      "cycle": 1
+    },
+    "priority": 0.6,
+    "reason": "attacker_inputs is not yet covered by the local evidence base.",
+    "target": "attacker_inputs:participants length"
+  },
+  {
+    "category": "external_calls",
+    "context": {
+      "contract": "LocalDoSGasDemo",
+      "cycle": 1
+    },
+    "priority": 0.6,
+    "reason": "external_calls is not yet covered by the local evidence base.",
+    "target": "external_calls:transfer"
+  }
+]

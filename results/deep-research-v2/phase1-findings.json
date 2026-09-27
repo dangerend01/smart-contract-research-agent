@@ -1,0 +1,322 @@
+{
+  "benchmark": "hard-phase1",
+  "findings": [
+    {
+      "affected_functions": [
+        "prepare",
+        "run"
+      ],
+      "affected_state_variables": [
+        "prepared",
+        "processed"
+      ],
+      "attacker_controlled_inputs": [
+        "user-controlled values that populate or grow the relevant state",
+        "multi-call ordering before a victim operation"
+      ],
+      "candidate_invariants": [
+        {
+          "category": "bounded resource usage",
+          "invariant": "execution cost should not be driven by unrelated historical state drift"
+        },
+        {
+          "category": "state-machine consistency",
+          "invariant": "Explain why the execution cost changes after a specific sequence of calls."
+        },
+        {
+          "category": "call ordering",
+          "invariant": "execution cost and state transitions must remain predictable across the observed call sequence"
+        }
+      ],
+      "challenge_id": "HB-001",
+      "deep_analysis": {
+        "justification": "Source inspection did not by itself fully constrain the execution path, so deeper analysis was necessary to verify the trigger and the cost multiplier.",
+        "reason": "The issue depends on ordering across time, so state and resource behavior must be examined before confirming the root cause.",
+        "selected_layers": [
+          "source",
+          "state/storage",
+          "gas/resource"
+        ]
+      },
+      "difficulty": "INTERMEDIATE",
+      "evidence_quality": "public-source-only-evidence",
+      "expected_behavior": "the later victim path should become more expensive when the relevant state is larger or more complex",
+      "failed_attempt": {
+        "actual_result": "The public source shows that state is mutated in one function and then reused as a later loop bound, producing a state-history-sensitive execution path.",
+        "challenge_id": "HB-001",
+        "failed_assumption": "A broad mechanism was identified, but the exact trigger sequence and invariant violation were not yet proven.",
+        "hypothesis": "a stored state value is later reused as the loop bound during execution",
+        "lesson": "A plausible mechanism is not the same as a confirmed finding; minimal reproducible evidence is required.",
+        "next_search_implication": "Prefer ordered call traces and invariant-based reasoning before concluding the root cause.",
+        "prediction": "If the hypothesis is correct, a later prepare/run sequence will increase per-call work because the stored state becomes the loop bound."
+      },
+      "family": "sequence-dependent-loop-amplification",
+      "finding_status": "FALSE_POSITIVE",
+      "hypothesis": "a stored state value is later reused as the loop bound during execution",
+      "invariant_violation": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+      "mechanism_fingerprint": "2e8822b506ec781c",
+      "minimized_counterexample": {
+        "calls": [
+          "setup mutation",
+          "victim call"
+        ],
+        "input_sizes": [
+          "smallest sufficient non-zero state"
+        ],
+        "reason": "The minimal reproducer preserves the trigger and one later victim operation, removing unrelated noise.",
+        "relevant_storage_state": [
+          "prepared"
+        ],
+        "sequence_length": 2,
+        "state_size": [
+          "prepared"
+        ]
+      },
+      "not_novel": true,
+      "novelty_status": "not-claimed",
+      "observed_behavior": "The public source shows that state is mutated in one function and then reused as a later loop bound, producing a state-history-sensitive execution path.",
+      "observed_outcome": "The public source shows that state is mutated in one function and then reused as a later loop bound, producing a state-history-sensitive execution path.",
+      "predicted_outcome": "If the hypothesis is correct, a later prepare/run sequence will increase per-call work because the stored state becomes the loop bound.",
+      "prediction": "If the hypothesis is correct, a later prepare/run sequence will increase per-call work because the stored state becomes the loop bound.",
+      "reproducible_test": "Run the minimal sequence: mutate state, invoke the relevant later function, and compare the smaller and larger cases.",
+      "required_state": [
+        "prepared",
+        "processed"
+      ],
+      "resource_impact": {
+        "expected": "larger state yields larger work",
+        "kind": "gas_or_resource_growth"
+      },
+      "root_cause": "A previously stored value changes the future loop bound, so the execution cost is a function of prior state history rather than a single fixed bound.",
+      "trigger": "history-dependent state mutation before victim execution",
+      "triggering_sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state",
+        "3. compare execution cost or work count against a smaller baseline"
+      ],
+      "why_invariant_broken": "The earlier state mutation changes the later work performed by a victim path, so the cost is no longer bounded by the intended invariant."
+    },
+    {
+      "affected_functions": [
+        "enroll",
+        "settle"
+      ],
+      "affected_state_variables": [
+        "settled",
+        "waiting"
+      ],
+      "attacker_controlled_inputs": [
+        "user-controlled values that populate or grow the relevant state",
+        "multi-call ordering before a victim operation"
+      ],
+      "candidate_invariants": [
+        {
+          "category": "bounded resource usage",
+          "invariant": "processing cost should not scale with the number of previously accepted entries"
+        },
+        {
+          "category": "state-machine consistency",
+          "invariant": "Determine why the processing path becomes more expensive as the queue grows."
+        },
+        {
+          "category": "bounded resource usage",
+          "invariant": "resource usage must not grow unboundedly as attacker-controlled state increases"
+        }
+      ],
+      "challenge_id": "HB-002",
+      "deep_analysis": {
+        "justification": "Source inspection did not by itself fully constrain the execution path, so deeper analysis was necessary to verify the trigger and the cost multiplier.",
+        "reason": "The challenge requires showing how state growth magnifies the later victim path.",
+        "selected_layers": [
+          "source",
+          "control/data flow",
+          "gas/resource"
+        ]
+      },
+      "difficulty": "INTERMEDIATE",
+      "evidence_quality": "public-source-only-evidence",
+      "expected_behavior": "the later victim path should become more expensive when the relevant state is larger or more complex",
+      "failed_attempt": {
+        "actual_result": "The public source shows a list or queue-like structure being remembered across calls and then processed in a later loop.",
+        "challenge_id": "HB-002",
+        "failed_assumption": "A broad mechanism was identified, but the exact trigger sequence and invariant violation were not yet proven.",
+        "hypothesis": "a growing state collection is processed in a later victim function and multiplies resource use",
+        "lesson": "A plausible mechanism is not the same as a confirmed finding; minimal reproducible evidence is required.",
+        "next_search_implication": "Prefer ordered call traces and invariant-based reasoning before concluding the root cause.",
+        "prediction": "If the hypothesis is correct, larger queue length will produce more work in the processing path and amplify gas use."
+      },
+      "family": "queue-growth-gas-amplifier",
+      "finding_status": "FALSE_POSITIVE",
+      "hypothesis": "a growing state collection is processed in a later victim function and multiplies resource use",
+      "invariant_violation": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+      "mechanism_fingerprint": "56647b9cb51cf7b6",
+      "minimized_counterexample": {
+        "calls": [
+          "setup mutation",
+          "victim call"
+        ],
+        "input_sizes": [
+          "smallest sufficient non-zero state"
+        ],
+        "reason": "The minimal reproducer preserves the trigger and one later victim operation, removing unrelated noise.",
+        "relevant_storage_state": [
+          "settled"
+        ],
+        "sequence_length": 2,
+        "state_size": [
+          "settled"
+        ]
+      },
+      "not_novel": true,
+      "novelty_status": "not-claimed",
+      "observed_behavior": "The public source shows a list or queue-like structure being remembered across calls and then processed in a later loop.",
+      "observed_outcome": "The public source shows a list or queue-like structure being remembered across calls and then processed in a later loop.",
+      "predicted_outcome": "If the hypothesis is correct, larger queue length will produce more work in the processing path and amplify gas use.",
+      "prediction": "If the hypothesis is correct, larger queue length will produce more work in the processing path and amplify gas use.",
+      "reproducible_test": "Run the minimal sequence: mutate state, invoke the relevant later function, and compare the smaller and larger cases.",
+      "required_state": [
+        "settled",
+        "waiting"
+      ],
+      "resource_impact": {
+        "expected": "larger state yields larger work",
+        "kind": "gas_or_resource_growth"
+      },
+      "root_cause": "The victim function iterates over a stored queue, and each earlier acceptance grows the future cost of the same path.",
+      "trigger": "queue or collection growth before settlement",
+      "triggering_sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state",
+        "3. compare execution cost or work count against a smaller baseline"
+      ],
+      "why_invariant_broken": "The earlier state mutation changes the later work performed by a victim path, so the cost is no longer bounded by the intended invariant."
+    },
+    {
+      "affected_functions": [
+        "seed",
+        "sweep"
+      ],
+      "affected_state_variables": [
+        "alpha",
+        "beta",
+        "processed",
+        "tick"
+      ],
+      "attacker_controlled_inputs": [
+        "user-controlled values that populate or grow the relevant state",
+        "multi-call ordering before a victim operation"
+      ],
+      "candidate_invariants": [
+        {
+          "category": "bounded resource usage",
+          "invariant": "resource use should not be driven by packed-state values that are not directly tied to the intended control flow"
+        },
+        {
+          "category": "state-machine consistency",
+          "invariant": "Explain the origin of the execution cost growth and why it is tied to specific state values."
+        },
+        {
+          "category": "storage consistency",
+          "invariant": "storage layout and derived values must not distort later execution or create hidden amplification paths"
+        }
+      ],
+      "challenge_id": "HB-003",
+      "deep_analysis": {
+        "justification": "Source inspection did not by itself fully constrain the execution path, so deeper analysis was necessary to verify the trigger and the cost multiplier.",
+        "reason": "The challenge may involve storage-layout or lower-level compiled behavior rather than obvious source-level semantics.",
+        "selected_layers": [
+          "source",
+          "state/storage",
+          "compiler configuration",
+          "bytecode"
+        ]
+      },
+      "difficulty": "ADVANCED",
+      "evidence_quality": "public-source-only-evidence",
+      "expected_behavior": "the later victim path should become more expensive when the relevant state is larger or more complex",
+      "failed_attempt": {
+        "actual_result": "The public source shows stored values feeding a later expensive path, and the workload is driven by state rather than a fixed constant.",
+        "challenge_id": "HB-003",
+        "failed_assumption": "A broad mechanism was identified, but the exact trigger sequence and invariant violation were not yet proven.",
+        "hypothesis": "state-derived execution cost grows with later processing of stored attacker-controlled values",
+        "lesson": "A plausible mechanism is not the same as a confirmed finding; minimal reproducible evidence is required.",
+        "next_search_implication": "Prefer ordered call traces and invariant-based reasoning before concluding the root cause.",
+        "prediction": "If the hypothesis is correct, packed storage values will influence the later loop or processing branch and change the cost profile."
+      },
+      "family": "packed-storage-drift",
+      "finding_status": "FALSE_POSITIVE",
+      "hypothesis": "state-derived execution cost grows with later processing of stored attacker-controlled values",
+      "invariant_violation": "execution should not become substantially more expensive because of prior attacker-controlled state growth",
+      "mechanism_fingerprint": "ebc9265da1b46d1f",
+      "minimized_counterexample": {
+        "calls": [
+          "setup mutation",
+          "victim call"
+        ],
+        "input_sizes": [
+          "smallest sufficient non-zero state"
+        ],
+        "reason": "The minimal reproducer preserves the trigger and one later victim operation, removing unrelated noise.",
+        "relevant_storage_state": [
+          "alpha"
+        ],
+        "sequence_length": 2,
+        "state_size": [
+          "alpha"
+        ]
+      },
+      "not_novel": true,
+      "novelty_status": "not-claimed",
+      "observed_behavior": "The public source shows stored values feeding a later expensive path, and the workload is driven by state rather than a fixed constant.",
+      "observed_outcome": "The public source shows stored values feeding a later expensive path, and the workload is driven by state rather than a fixed constant.",
+      "predicted_outcome": "If the hypothesis is correct, packed storage values will influence the later loop or processing branch and change the cost profile.",
+      "prediction": "If the hypothesis is correct, packed storage values will influence the later loop or processing branch and change the cost profile.",
+      "reproducible_test": "Run the minimal sequence: mutate state, invoke the relevant later function, and compare the smaller and larger cases.",
+      "required_state": [
+        "alpha",
+        "beta",
+        "processed",
+        "tick"
+      ],
+      "resource_impact": {
+        "expected": "larger state yields larger work",
+        "kind": "gas_or_resource_growth"
+      },
+      "root_cause": "Stored packed values participate in later control flow and become part of the cost of a later processing branch.",
+      "trigger": "state mutation followed by expensive victim processing",
+      "triggering_sequence": [
+        "1. mutate the relevant state in a setup step",
+        "2. invoke the victim function with the resulting state",
+        "3. compare execution cost or work count against a smaller baseline"
+      ],
+      "why_invariant_broken": "The earlier state mutation changes the later work performed by a victim path, so the cost is no longer bounded by the intended invariant."
+    }
+  ],
+  "generated_at": "local",
+  "researcher_version": "evidence-driven-deep-researcher-v2",
+  "strategy_version": {
+    "learning_signals": [
+      {
+        "challenge_id": "HB-001",
+        "finding_status": "FALSE_POSITIVE",
+        "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+        "root_cause": "A previously stored value changes the future loop bound, so the execution cost is a function of prior state history rather than a single fixed bound."
+      },
+      {
+        "challenge_id": "HB-002",
+        "finding_status": "FALSE_POSITIVE",
+        "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+        "root_cause": "The victim function iterates over a stored queue, and each earlier acceptance grows the future cost of the same path."
+      },
+      {
+        "challenge_id": "HB-003",
+        "finding_status": "FALSE_POSITIVE",
+        "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+        "root_cause": "Stored packed values participate in later control flow and become part of the cost of a later processing branch."
+      }
+    ],
+    "objective": "Evidence-first deep researcher v2: prioritize reproducible evidence, invariant checks, and root-cause quality over plausible mechanism names.",
+    "strategy_version": "strategy-v016",
+    "timestamp": "local"
+  }
+}

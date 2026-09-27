@@ -1,0 +1,38 @@
+{
+  "benchmark": "hard-phase1",
+  "generated_at": "local",
+  "results": [
+    {
+      "challenge_id": "HB-001",
+      "evidence_observed": true,
+      "expected_mechanism": "sequence-dependent loop amplification",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "the loop bound is derived from stored state that is mutated across calls",
+      "pass": false,
+      "score": 0.0
+    },
+    {
+      "challenge_id": "HB-002",
+      "evidence_observed": true,
+      "expected_mechanism": "queue-growth gas amplifier",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "the processing path iterates over a growing queue or entry list",
+      "pass": false,
+      "score": 0.0
+    },
+    {
+      "challenge_id": "HB-003",
+      "evidence_observed": true,
+      "expected_mechanism": "packed-state-driven loop bound",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "packed state values feed a later loop or expensive processing branch",
+      "pass": true,
+      "score": 1.0
+    }
+  ],
+  "summary": {
+    "challenge_count": 3,
+    "failed": 2,
+    "passed": 1
+  }
+}

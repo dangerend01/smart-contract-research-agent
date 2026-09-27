@@ -1,0 +1,23 @@
+{
+  "strategy_version": "strategy-v052",
+  "timestamp": "local",
+  "objective": "Turn generic state-history and ordering hypotheses into concrete state-transition investigations before abandoning them.",
+  "failure": "generic ordering hypothesis did not become a concrete state-transition hypothesis",
+  "lesson": "when state-history is detected, inspect baseline/reference variables and cross-function state dependencies before abandoning the hypothesis",
+  "new_strategy": "state-history -> snapshot detection -> cross-function dataflow -> sequence mutation -> state differential -> minimization",
+  "details": {
+    "trigger": "A later function consumes an earlier stored value and the contract semantics depend on call order.",
+    "analysis_steps": [
+      "identify snapshot, checkpoint, baseline, and previous-state variables",
+      "build the cross-function dataflow graph between state-changing and state-consuming functions",
+      "test ordered mutation sequences that reproduce the stale-reference pattern",
+      "compare state before and after each call to expose unexpected historical reuse",
+      "minimize the reproduction until the smallest meaningful sequence remains"
+    ],
+    "guardrails": [
+      "do not treat stale-reference suspicion as a vulnerability without an invariant violation",
+      "do not assume a compiler or bytecode difference is the root cause without a state-transition explanation",
+      "carry the minimal counterexample forward as the authoritative reproduction"
+    ]
+  }
+}

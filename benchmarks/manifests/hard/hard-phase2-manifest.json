@@ -1,0 +1,17 @@
+{
+  "benchmark": "hard-phase2",
+  "challenge_count": 3,
+  "challenge_ids": [
+    "PH2-005",
+    "PH2-006",
+    "PH2-007"
+  ],
+  "difficulty_band": "phase-2-hard",
+  "difficulty_levels": [
+    "LEVEL_5",
+    "LEVEL_6",
+    "LEVEL_7"
+  ],
+  "notes": "Phase 2 is a harder blind benchmark focused on deeper exploration, state-history, ABI/EVM edge cases, and assembly-level influences.",
+  "public_only": true
+}

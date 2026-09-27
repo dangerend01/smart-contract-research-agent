@@ -1,0 +1,43 @@
+{
+  "affected_functions": [
+    "addParticipant",
+    "processAll"
+  ],
+  "attack_sequence": [
+    "fill storage with attacker-controlled entries",
+    "invoke state-consuming function",
+    "measure cost and accessibility"
+  ],
+  "attacker_capabilities": [
+    "push more state",
+    "repeatedly grow a collection before victim action"
+  ],
+  "attacker_controlled_inputs": [
+    "state growth",
+    "storage entry count"
+  ],
+  "category": "storage growth",
+  "confidence": 0.68,
+  "expected_observation": "resource use rises as storage grows, even without changing contract logic.",
+  "experiment_plan": {
+    "attacker_action": "Grow the attacker-controlled data set or trigger repeated input processing before a victim call.",
+    "category": "storage growth",
+    "expected_observation": "Storage growth creates a resource-exhaustion path should produce progressively higher cost as attacker-controlled state expands.",
+    "falsification_condition": "If the victim operation remains flat or bounded despite growth in the attacker-controlled state, the hypothesis is weakened or falsified.",
+    "measurement": "Record gas usage and execution cost as the attacker-controlled input size increases.",
+    "setup": "Deploy the local contract and initialize attacker-controlled state with a small baseline.",
+    "state_changes": "Observe whether attacker-controlled growth causes a larger resource requirement in the victim path.",
+    "victim_action": "Call the relevant mutating path in addParticipant, processAll."
+  },
+  "id": "H-002",
+  "mechanism": "The contract stores attacker-controlled data and later reprocesses it, creating a path where storage growth increases per-user cost without a bounded limit.",
+  "novelty_status": "new",
+  "predicted_failure": "The contract eventually becomes unusable due to rising persistent storage and processing cost.",
+  "priority": 39,
+  "required_state": [
+    "contract state stores dynamic entries"
+  ],
+  "status": "unverified",
+  "target_invariant": "Critical state transitions should remain reachable and not become prohibitively expensive.",
+  "title": "Storage growth creates a resource-exhaustion path"
+}

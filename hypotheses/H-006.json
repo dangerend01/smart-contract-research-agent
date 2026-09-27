@@ -1,0 +1,44 @@
+{
+  "affected_functions": [
+    "addParticipant",
+    "processAll"
+  ],
+  "attack_sequence": [
+    "populate a dynamic array or mapping with attacker-controlled entries",
+    "invoke the processing function",
+    "observe cost increase as collection size grows"
+  ],
+  "attacker_capabilities": [
+    "append attacker-controlled entries",
+    "increase collection size before victim call"
+  ],
+  "attacker_controlled_inputs": [
+    "participant list length",
+    "dynamic storage entries",
+    "caller-controlled list growth"
+  ],
+  "category": "attacker-controlled state growth",
+  "confidence": 0.72,
+  "expected_observation": "gas usage increases materially when the attacker-controlled collection is larger.",
+  "experiment_plan": {
+    "attacker_action": "Grow the attacker-controlled data set or trigger repeated input processing before a victim call.",
+    "category": "attacker-controlled state growth",
+    "expected_observation": "Attacker-controlled participant set amplifies processing cost should produce progressively higher cost as attacker-controlled state expands.",
+    "falsification_condition": "If the victim operation remains flat or bounded despite growth in the attacker-controlled state, the hypothesis is weakened or falsified.",
+    "measurement": "Record gas usage and execution cost as the attacker-controlled input size increases.",
+    "setup": "Deploy the local contract and initialize attacker-controlled state with a small baseline.",
+    "state_changes": "Observe whether attacker-controlled growth causes a larger resource requirement in the victim path.",
+    "victim_action": "Call the relevant mutating path in addParticipant, processAll."
+  },
+  "id": "H-006",
+  "mechanism": "A dynamic list or mapping is populated by an attacker and later processed in a loop, causing the victim operation to become more expensive as the attacker-controlled set grows.",
+  "novelty_status": "duplicate",
+  "predicted_failure": "The victim operation's gas use rises with the size of the attack-controlled state and eventually becomes impractical.",
+  "priority": 73,
+  "required_state": [
+    "participants array or mapping-backed state must contain attacker-created entries"
+  ],
+  "status": "unverified",
+  "target_invariant": "One user should not be able to make another user's operation excessively expensive.",
+  "title": "Attacker-controlled participant set amplifies processing cost"
+}

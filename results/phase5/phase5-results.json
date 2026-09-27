@@ -1,0 +1,162 @@
+{
+  "benchmark": "hard-phase4",
+  "bytecode_differences": 8,
+  "challenge_count": 4,
+  "compiler_differences": 8,
+  "deepest_analysis_layer_reached": "bytecode-analysis",
+  "experiments_performed": 15,
+  "false_positives": 0,
+  "frontier_selection": [
+    {
+      "challenge_id": "PH4-011",
+      "frontier": [
+        {
+          "category": "state_variables",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.8,
+          "reason": "state_variables is not yet covered by the local evidence base.",
+          "target": "state_variables:participants"
+        },
+        {
+          "category": "attacker_inputs",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "attacker_inputs is not yet covered by the local evidence base.",
+          "target": "attacker_inputs:participants length"
+        },
+        {
+          "category": "external_calls",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "external_calls is not yet covered by the local evidence base.",
+          "target": "external_calls:transfer"
+        }
+      ]
+    },
+    {
+      "challenge_id": "PH4-012",
+      "frontier": [
+        {
+          "category": "state_variables",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.8,
+          "reason": "state_variables is not yet covered by the local evidence base.",
+          "target": "state_variables:participants"
+        },
+        {
+          "category": "attacker_inputs",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "attacker_inputs is not yet covered by the local evidence base.",
+          "target": "attacker_inputs:participants length"
+        },
+        {
+          "category": "external_calls",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "external_calls is not yet covered by the local evidence base.",
+          "target": "external_calls:transfer"
+        }
+      ]
+    },
+    {
+      "challenge_id": "PH4-013",
+      "frontier": [
+        {
+          "category": "state_variables",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.8,
+          "reason": "state_variables is not yet covered by the local evidence base.",
+          "target": "state_variables:participants"
+        },
+        {
+          "category": "attacker_inputs",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "attacker_inputs is not yet covered by the local evidence base.",
+          "target": "attacker_inputs:participants length"
+        },
+        {
+          "category": "external_calls",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "external_calls is not yet covered by the local evidence base.",
+          "target": "external_calls:transfer"
+        }
+      ]
+    },
+    {
+      "challenge_id": "PH4-014",
+      "frontier": [
+        {
+          "category": "state_variables",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.8,
+          "reason": "state_variables is not yet covered by the local evidence base.",
+          "target": "state_variables:participants"
+        },
+        {
+          "category": "attacker_inputs",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "attacker_inputs is not yet covered by the local evidence base.",
+          "target": "attacker_inputs:participants length"
+        },
+        {
+          "category": "external_calls",
+          "context": {
+            "contract": "LocalDoSGasDemo",
+            "cycle": 1
+          },
+          "priority": 0.6,
+          "reason": "external_calls is not yet covered by the local evidence base.",
+          "target": "external_calls:transfer"
+        }
+      ]
+    }
+  ],
+  "mechanism_families": [
+    "abi-storage-edge-cases",
+    "cross-function-emergent-behavior",
+    "resource-amplification",
+    "state-history-dependent-behavior"
+  ],
+  "mechanisms_discovered": 4,
+  "mechanisms_missed": 0,
+  "minimized_counterexamples": 4,
+  "phase": "PHASE5",
+  "trace_differences": 4
+}

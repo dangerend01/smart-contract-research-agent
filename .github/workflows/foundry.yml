@@ -1,0 +1,21 @@
+name: Foundry
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v3
+
+      - name: Compile contracts
+        run: forge build
+
+      - name: Run tests
+        run: forge test

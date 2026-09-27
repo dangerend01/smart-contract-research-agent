@@ -1,0 +1,55 @@
+{
+  "benchmark": "hard-phase2",
+  "false_positives": [],
+  "generated_at": "local",
+  "missed_mechanisms": [
+    {
+      "challenge_id": "PH2-006",
+      "expected_mechanism": "sequence-history gas drift",
+      "identified_mechanism": "history-dependent scheduling drift in the later sweep loop",
+      "reason": "public-only hypothesis did not match the protected evaluator mechanism"
+    },
+    {
+      "challenge_id": "PH2-007",
+      "expected_mechanism": "ABI/assembly slot-ambiguity amplification",
+      "identified_mechanism": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+      "reason": "public-only hypothesis did not match the protected evaluator mechanism"
+    }
+  ],
+  "results": [
+    {
+      "challenge_id": "PH2-005",
+      "confidence": 0.78,
+      "expected_mechanism": "cross-function state entropy",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "cross-function state entropy through a stored loop bound",
+      "pass": true,
+      "score": 1.0
+    },
+    {
+      "challenge_id": "PH2-006",
+      "confidence": 0.82,
+      "expected_mechanism": "sequence-history gas drift",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "history-dependent scheduling drift in the later sweep loop",
+      "pass": false,
+      "score": 0.0
+    },
+    {
+      "challenge_id": "PH2-007",
+      "confidence": 0.87,
+      "expected_mechanism": "ABI/assembly slot-ambiguity amplification",
+      "ground_truth_access": "hidden_evaluator_only",
+      "identified_mechanism": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+      "pass": false,
+      "score": 0.0
+    }
+  ],
+  "summary": {
+    "challenge_count": 3,
+    "failed": 2,
+    "false_positive_count": 0,
+    "missed_count": 2,
+    "passed": 1
+  }
+}

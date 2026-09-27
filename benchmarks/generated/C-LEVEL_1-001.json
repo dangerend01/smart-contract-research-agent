@@ -1,0 +1,48 @@
+{
+  "available_functions": [
+    "addParticipant",
+    "processAll"
+  ],
+  "blind_bundle": {
+    "available_functions": [
+      "addParticipant",
+      "processAll"
+    ],
+    "challenge_id": "C-LEVEL_1-001",
+    "contract_source": "\n            // SPDX-License-Identifier: MIT\n            pragma solidity ^0.8.25;\n            contract C_LEVEL_1_001 {{\n                address[] public participants;\n                mapping(address => bool) public seen;\n                uint256 public processed;\n                function addParticipant(address account) external {{\n                    require(account != address(0));\n                    if (!seen[account]) {{ seen[account] = true; participants.push(account); }}\n                }}\n                function processAll() external {{\n                    for (uint256 i = 0; i < participants.length; ++i) {{\n                        if (participants[i] != address(0)) processed += 1;\n                    }}\n                }}\n            }}\n            ",
+    "deployment_configuration": {
+      "address_count": 10,
+      "local": true
+    },
+    "difficulty": "LEVEL_1",
+    "generation_seed": 8,
+    "initial_state": {
+      "participants": [],
+      "processed": 0
+    },
+    "intended_invariants": [
+      "gas should not scale with attacker-controlled state"
+    ],
+    "resource_model": {
+      "gas": "linear_in_state_size"
+    }
+  },
+  "challenge_id": "C-LEVEL_1-001",
+  "contract_source": "\n            // SPDX-License-Identifier: MIT\n            pragma solidity ^0.8.25;\n            contract C_LEVEL_1_001 {{\n                address[] public participants;\n                mapping(address => bool) public seen;\n                uint256 public processed;\n                function addParticipant(address account) external {{\n                    require(account != address(0));\n                    if (!seen[account]) {{ seen[account] = true; participants.push(account); }}\n                }}\n                function processAll() external {{\n                    for (uint256 i = 0; i < participants.length; ++i) {{\n                        if (participants[i] != address(0)) processed += 1;\n                    }}\n                }}\n            }}\n            ",
+  "deployment_configuration": {
+    "address_count": 10,
+    "local": true
+  },
+  "difficulty": "LEVEL_1",
+  "generation_seed": 8,
+  "initial_state": {
+    "participants": [],
+    "processed": 0
+  },
+  "intended_invariants": [
+    "gas should not scale with attacker-controlled state"
+  ],
+  "resource_model": {
+    "gas": "linear_in_state_size"
+  }
+}

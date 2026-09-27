@@ -1,0 +1,49 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis"
+  ],
+  "available_functions": [
+    "seed",
+    "execute"
+  ],
+  "challenge_id": "PH2-007",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": true
+  },
+  "contract_name": "AbiAssemblySlotAmbiguity",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract AbiAssemblySlotAmbiguity {\n    uint256 public slotA;\n    uint256 public slotB;\n    uint256 public processed;\n\n    function seed(uint256 left, uint256 right) external {\n        slotA = left;\n        slotB = right;\n        assembly {\n            sstore(0x40, left)\n            sstore(0x41, right)\n        }\n    }\n\n    function execute(bytes calldata data) external {\n        uint256 offset;\n        assembly {\n            offset := calldataload(4)\n        }\n        uint256 bound = (slotA + slotB + offset) % 257;\n\n        if (data.length > 0) {\n            bound += uint256(uint8(data[0]));\n        }\n\n        for (uint256 i = 0; i < bound; ++i) {\n            processed += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_7",
+  "difficulty_classification": "abi/evm/yul/bytecode depth",
+  "expected_evidence_requirements": [
+    "state-plus-calldata trace",
+    "assembly or Yul interpretation",
+    "storage aliasing or slot reasoning",
+    "bytecode-level explanation when source reasoning is insufficient"
+  ],
+  "family": "abi-assembly-slot-ambiguity",
+  "initial_state": {
+    "processed": 0,
+    "slotA": 0,
+    "slotB": 0
+  },
+  "invariant": "execution cost should not silently depend on opaque ABI and storage aliasing that is hidden behind assembly-level data interpretation",
+  "mechanism_fingerprint": "calldata+assembly+slot_aliasing->resource-amplification",
+  "public_objective": "Explain why a function that looks like a simple ABI wrapper becomes disproportionately expensive under certain calldata and state combinations, and why source-level reasoning alone is incomplete.",
+  "resource_model": {
+    "gas": "assembly_and_calldata_dependent",
+    "notes": "the bound is derived from a partially hidden ABI/calldata offset plus packed storage values"
+  },
+  "seed": 2007
+}

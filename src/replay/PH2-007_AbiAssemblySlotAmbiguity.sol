@@ -1,0 +1,34 @@
+
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.25;
+
+contract AbiAssemblySlotAmbiguity {
+    uint256 public slotA;
+    uint256 public slotB;
+    uint256 public processed;
+
+    function seed(uint256 left, uint256 right) external {
+        slotA = left;
+        slotB = right;
+        assembly {
+            sstore(0x40, left)
+            sstore(0x41, right)
+        }
+    }
+
+    function execute(bytes calldata data) external {
+        uint256 offset;
+        assembly {
+            offset := calldataload(4)
+        }
+        uint256 bound = (slotA + slotB + offset) % 257;
+
+        if (data.length > 0) {
+            bound += uint256(uint8(data[0]));
+        }
+
+        for (uint256 i = 0; i < bound; ++i) {
+            processed += 1;
+        }
+    }
+}

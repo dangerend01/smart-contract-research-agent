@@ -1,0 +1,183 @@
+{
+  "bytecode_summary": {
+    "analysis_goal": "Trace storage, calldata, and repeated work loops to determine whether value flow differs from source-level expectations.",
+    "bytecode_regions": [
+      "storage region",
+      "calldata region",
+      "loop region",
+      "revert/exit region"
+    ],
+    "likely_evm_ops": [
+      "PUSH"
+    ]
+  },
+  "candidate_invariants": [
+    {
+      "affected_functions": [
+        "prime",
+        "settle"
+      ],
+      "confidence": 0.8,
+      "description": "The public execution path should not allow a later function to derive a larger loop or resource cost from earlier attacker-controlled state history.",
+      "evidence": [
+        "source shows later work is dependent on earlier stored values",
+        "state history is carried across functions"
+      ],
+      "invariant_id": "INV-001",
+      "postconditions": [
+        "resource consumption should remain bounded by the current invocation and not silently expand with prior state history"
+      ],
+      "preconditions": [
+        "state is mutated before a later function is called",
+        "the same state is reused in a subsequent execution path"
+      ],
+      "state_variables": [
+        "epoch",
+        "total",
+        "backlog",
+        "enabled"
+      ]
+    },
+    {
+      "affected_functions": [
+        "prime",
+        "settle"
+      ],
+      "confidence": 0.76,
+      "description": "Resource use should scale predictably with the current input and state, not with hidden state history or compiler-level representation quirks.",
+      "evidence": [
+        "resource-sensitive loops exist in the source",
+        "the cost must be explainable through state and input analysis"
+      ],
+      "invariant_id": "INV-003",
+      "postconditions": [
+        "gas and work should be explainable from the obvious state and input variables"
+      ],
+      "preconditions": [
+        "the function is invoked with any valid input",
+        "state comes from prior calls or storage"
+      ],
+      "state_variables": [
+        "epoch",
+        "total",
+        "backlog",
+        "enabled"
+      ]
+    }
+  ],
+  "contract_name": "CrossFunctionEmergentBehavior",
+  "cross_function_composition": [
+    {
+      "composition_risk": "emergent cross-function behavior",
+      "failure_interaction": "failure may persist partially mutated state",
+      "ordering_dependency": "yes",
+      "pair": [
+        "prime",
+        "settle"
+      ],
+      "read_write_overlap": "likely",
+      "resource_interaction": "state-derived loop bound or repeated work",
+      "shared_state": [
+        "epoch",
+        "total",
+        "backlog",
+        "enabled"
+      ]
+    }
+  ],
+  "deepest_layer_reached": "trace-differential-analysis",
+  "escalation_policy": [
+    "source reasoning",
+    "state/invariant analysis",
+    "sequence exploration",
+    "resource/gas analysis",
+    "ABI/storage edge case analysis",
+    "Yul/IR",
+    "bytecode/opcode",
+    "compiler differential",
+    "trace differential"
+  ],
+  "mechanism_graph": {
+    "edges": [
+      "reads",
+      "writes",
+      "depends-on",
+      "amplifies",
+      "fails",
+      "transforms"
+    ],
+    "nodes": [
+      "state",
+      "function",
+      "input",
+      "history",
+      "resource",
+      "failure",
+      "compiler layer",
+      "EVM operation"
+    ]
+  },
+  "research_questions": [
+    "What assumptions does this state machine make about ordering and call history?",
+    "Which invariants must always hold across function calls and state transitions?",
+    "Which sequences can violate those assumptions or create an emergent state?",
+    "Which state variables influence security-sensitive control flow or resource use?",
+    "Which functions become dangerous only after specific history or repeated execution?",
+    "Which resources can an attacker cause the system to consume unexpectedly?",
+    "Can individually safe operations compose into unsafe state transitions?",
+    "Can failure create a different transition than success?",
+    "Can retry or repeated invocation amplify an effect?",
+    "Can caller-controlled data influence storage layout, calldata interpretation, or execution paths?",
+    "Can ABI or compiler transformations alter the observed semantics?",
+    "Can two semantically equivalent inputs produce materially different execution?",
+    "Can compiler configuration or Yul/IR representation alter the relevant behavior?",
+    "Can bytecode behavior differ from source-level reasoning?",
+    "Which function pairs among prime, settle create the highest cross-function risk when composed?",
+    "Which of epoch, total, backlog, enabled are most likely to create history-dependent or storage-based amplification?"
+  ],
+  "resource_analysis": {
+    "amplification_hypotheses": [
+      "small attacker-controlled state leads to a much larger later work loop",
+      "state history becomes part of a later computation rather than a fixed invariant"
+    ],
+    "gas_sensitive_patterns": {
+      "calldata_processing": 0,
+      "loop_count": 1,
+      "storage_writes": 2
+    },
+    "resource_model": {
+      "characterization": "linear to superlinear when prior state grows",
+      "type": "history-dependent or loop-bound dependent"
+    }
+  },
+  "state_machine": {
+    "sequence_priorities": [
+      "A -> B where B consumes previously modified state",
+      "A -> B -> C where later work is a function of the earlier history",
+      "A -> failure -> retry where retry changes the state machine"
+    ],
+    "state_machine": {
+      "states": [
+        "init",
+        "mutated",
+        "decision",
+        "failure",
+        "resource-heavy"
+      ],
+      "transitions": [
+        {
+          "action": "prime",
+          "from": "pre-call",
+          "risk": "setup transition",
+          "to": "mutated-by-prime"
+        },
+        {
+          "action": "repeat-or-retry",
+          "from": "prime",
+          "risk": "state amplification or repeated mutation",
+          "to": "prime"
+        }
+      ]
+    }
+  }
+}

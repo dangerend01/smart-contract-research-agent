@@ -1,0 +1,48 @@
+{
+  "available_functions": [
+    "first",
+    "second"
+  ],
+  "blind_bundle": {
+    "available_functions": [
+      "first",
+      "second"
+    ],
+    "challenge_id": "C-LEVEL_7-005",
+    "contract_source": "\n        // SPDX-License-Identifier: MIT\n        pragma solidity ^0.8.25;\n        contract C_LEVEL_7_005 {{\n            uint256 public state;\n            uint256 public step;\n            function first(uint256 x) external {{\n                state += x;\n                step += 1;\n            }}\n            function second() external {{\n                if (state > 0) {{\n                    uint256 loopCount = state;\n                    for (uint256 i = 0; i < loopCount; ++i) {{\n                        step += 1;\n                    }}\n                }}\n            }}\n        }}\n        ",
+    "deployment_configuration": {
+      "local": true,
+      "sequence_enabled": true
+    },
+    "difficulty": "LEVEL_7",
+    "generation_seed": 47,
+    "initial_state": {
+      "state": 0,
+      "step": 0
+    },
+    "intended_invariants": [
+      "sequence of operations should not create unexpected resource amplification"
+    ],
+    "resource_model": {
+      "gas": "depends_on_state_history"
+    }
+  },
+  "challenge_id": "C-LEVEL_7-005",
+  "contract_source": "\n        // SPDX-License-Identifier: MIT\n        pragma solidity ^0.8.25;\n        contract C_LEVEL_7_005 {{\n            uint256 public state;\n            uint256 public step;\n            function first(uint256 x) external {{\n                state += x;\n                step += 1;\n            }}\n            function second() external {{\n                if (state > 0) {{\n                    uint256 loopCount = state;\n                    for (uint256 i = 0; i < loopCount; ++i) {{\n                        step += 1;\n                    }}\n                }}\n            }}\n        }}\n        ",
+  "deployment_configuration": {
+    "local": true,
+    "sequence_enabled": true
+  },
+  "difficulty": "LEVEL_7",
+  "generation_seed": 47,
+  "initial_state": {
+    "state": 0,
+    "step": 0
+  },
+  "intended_invariants": [
+    "sequence of operations should not create unexpected resource amplification"
+  ],
+  "resource_model": {
+    "gas": "depends_on_state_history"
+  }
+}

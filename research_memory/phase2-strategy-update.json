@@ -1,0 +1,30 @@
+{
+  "benchmark": "hard-phase2",
+  "previous_history": {
+    "source": "research_memory",
+    "note": "Historical Phase 1 research is preserved and not deleted. This update adds Phase 2 evidence only."
+  },
+  "strategy_changes": [
+    {
+      "change": "Progressively escalate through source, state/data-flow, sequence search, gas/resource analysis, Yul/IR, and bytecode/opcode analysis when the public source is insufficient.",
+      "why": "Phase 2 challenges intentionally hide crucial behavior behind state-history coupling and assembly-level data interpretation."
+    },
+    {
+      "change": "Treat abi/calldata and storage aliasing as first-class hypotheses rather than just source-level gas loops.",
+      "why": "The Phase 2 challenge set includes an EVM-level assembly path where source-only reasoning fails."
+    },
+    {
+      "change": "Require a minimized counterexample and replay-backed evidence before promoting a finding to confirmed.",
+      "why": "Separation between the blind benchmark and hidden ground truth makes public-only speculation risky and easy to overfit."
+    },
+    {
+      "change": "Keep failed experiments and missed mechanisms as explicit records instead of deleting them or recasting them as discoveries.",
+      "why": "The benchmark design explicitly requires recording misses and false positives to preserve the honesty of the research history."
+    }
+  ],
+  "phase_1_vs_phase_2_improvement": {
+    "phase_1": "Public benchmarks exposed mostly state-growth and loop-bound effects with straightforward source-level causes.",
+    "phase_2": "Blind benchmarks require call-order reasoning, cross-function state carries, and assembly-level interpretation for the harder cases.",
+    "adjustment": "The research planner now prioritizes sequence fuzzing and deeper EVM-layer analysis for later-stage challenge families."
+  }
+}

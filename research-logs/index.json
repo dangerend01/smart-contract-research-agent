@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "2026-09-27T00:00:00Z",
+    "event": "Foundry setup and validation",
+    "contract": "local baseline",
+    "summary": "Installed Foundry, configured the repo, and verified the baseline test suite passed."
+  },
+  {
+    "timestamp": "2026-09-27T00:00:00Z",
+    "event": "Local pipeline validation",
+    "contract": "src/LocalDoSGasDemo.sol",
+    "summary": "Executed the local research pipeline and validated the DoS/gas-griefing demonstration test."
+  }
+]

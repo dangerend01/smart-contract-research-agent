@@ -1,0 +1,43 @@
+{
+  "affected_functions": [
+    "addParticipant",
+    "processAll"
+  ],
+  "attack_sequence": [
+    "grow the looped collection",
+    "trigger the function containing the iteration",
+    "measure induced gas usage"
+  ],
+  "attacker_capabilities": [
+    "increase loop length",
+    "grow attacker-controlled collection"
+  ],
+  "attacker_controlled_inputs": [
+    "participants[i];",
+    "address => bool"
+  ],
+  "category": "unbounded iteration",
+  "confidence": 0.75,
+  "expected_observation": "gas cost scales monotonically with collection size.",
+  "experiment_plan": {
+    "attacker_action": "Grow the attacker-controlled data set or trigger repeated input processing before a victim call.",
+    "category": "unbounded iteration",
+    "expected_observation": "Unbounded iteration across dynamic state raises gas requirements should produce progressively higher cost as attacker-controlled state expands.",
+    "falsification_condition": "If the victim operation remains flat or bounded despite growth in the attacker-controlled state, the hypothesis is weakened or falsified.",
+    "measurement": "Record gas usage and execution cost as the attacker-controlled input size increases.",
+    "setup": "Deploy the local contract and initialize attacker-controlled state with a small baseline.",
+    "state_changes": "Observe whether attacker-controlled growth causes a larger resource requirement in the victim path.",
+    "victim_action": "Call the relevant mutating path in addParticipant, processAll."
+  },
+  "id": "H-004",
+  "mechanism": "Repeated iteration over storage-backed user-controlled data introduces a direct relationship between attacker-controlled input size and per-call resource use.",
+  "novelty_status": "duplicate",
+  "predicted_failure": "The operation becomes more expensive as loop length increases, producing gas griefing or blocking a victim path.",
+  "priority": 73,
+  "required_state": [
+    "storage-backed dynamic collection with looped processing"
+  ],
+  "status": "unverified",
+  "target_invariant": "Gas usage should not grow unexpectedly with attacker-controlled state.",
+  "title": "Unbounded iteration across dynamic state raises gas requirements"
+}

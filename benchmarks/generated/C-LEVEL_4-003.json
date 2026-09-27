@@ -1,0 +1,50 @@
+{
+  "available_functions": [
+    "push",
+    "settle"
+  ],
+  "blind_bundle": {
+    "available_functions": [
+      "push",
+      "settle"
+    ],
+    "challenge_id": "C-LEVEL_4-003",
+    "contract_source": "\n            // SPDX-License-Identifier: MIT\n            pragma solidity ^0.8.25;\n            contract C_LEVEL_4_003 {{\n                address[] private queue;\n                uint256 public total;\n                uint256 public epoch;\n                function push(address account) external {{\n                    if (account != address(0)) {{ queue.push(account); }}\n                }}\n                function settle() external {{\n                    uint256 count = queue.length;\n                    for (uint256 i = 0; i < count; ++i) {{\n                        total += 1;\n                        if (i % 2 == 0) {{ epoch += 1; }}\n                    }}\n                }}\n            }}\n            ",
+    "deployment_configuration": {
+      "local": true,
+      "state_reset": true
+    },
+    "difficulty": "LEVEL_4",
+    "generation_seed": 45,
+    "initial_state": {
+      "epoch": 0,
+      "queue": [],
+      "total": 0
+    },
+    "intended_invariants": [
+      "processing cost should not grow with attacker-controlled queue size"
+    ],
+    "resource_model": {
+      "gas": "linear_with_queue_length_and_state_writes"
+    }
+  },
+  "challenge_id": "C-LEVEL_4-003",
+  "contract_source": "\n            // SPDX-License-Identifier: MIT\n            pragma solidity ^0.8.25;\n            contract C_LEVEL_4_003 {{\n                address[] private queue;\n                uint256 public total;\n                uint256 public epoch;\n                function push(address account) external {{\n                    if (account != address(0)) {{ queue.push(account); }}\n                }}\n                function settle() external {{\n                    uint256 count = queue.length;\n                    for (uint256 i = 0; i < count; ++i) {{\n                        total += 1;\n                        if (i % 2 == 0) {{ epoch += 1; }}\n                    }}\n                }}\n            }}\n            ",
+  "deployment_configuration": {
+    "local": true,
+    "state_reset": true
+  },
+  "difficulty": "LEVEL_4",
+  "generation_seed": 45,
+  "initial_state": {
+    "epoch": 0,
+    "queue": [],
+    "total": 0
+  },
+  "intended_invariants": [
+    "processing cost should not grow with attacker-controlled queue size"
+  ],
+  "resource_model": {
+    "gas": "linear_with_queue_length_and_state_writes"
+  }
+}

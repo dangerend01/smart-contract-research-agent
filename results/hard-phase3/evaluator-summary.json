@@ -1,0 +1,58 @@
+{
+  "benchmark": "hard-phase3",
+  "challenge_count": 3,
+  "discovery_rate": 1.0,
+  "false_positive_count": 0,
+  "findings": [
+    {
+      "challenge_id": "PH3-008",
+      "expected_mechanism": "cross-function historical loop entanglement",
+      "family_match": false,
+      "mechanism_match": true,
+      "public_family": "cross-function-state-entropy-drift",
+      "status": "pass"
+    },
+    {
+      "challenge_id": "PH3-009",
+      "expected_mechanism": "history-driven mining drift",
+      "family_match": false,
+      "mechanism_match": true,
+      "public_family": "state-history-miner-gas-drift",
+      "status": "pass"
+    },
+    {
+      "challenge_id": "PH3-010",
+      "expected_mechanism": "assembly-level slot and calldata coupling",
+      "family_match": false,
+      "mechanism_match": true,
+      "public_family": "abi-yul-slot-ambiguity",
+      "status": "pass"
+    }
+  ],
+  "metrics": {
+    "discovery_rate": 1.0,
+    "experiments_per_challenge": 2.0,
+    "false_positives": [],
+    "hypotheses_per_challenge": 1.0,
+    "max_analysis_depth": "bytecode-opcode-analysis",
+    "mechanism_classification_accuracy": 1.0,
+    "missed_mechanisms": [],
+    "phase_comparison": {
+      "phase_1": 1.0,
+      "phase_2": 0.75,
+      "phase_3": 1.0
+    },
+    "redundant_experiments": 1,
+    "root_cause_accuracy": 1.0,
+    "self_improvement_changes": [
+      "state-history drift prioritized as a required hypothesis class",
+      "bytecode/opcode analysis is now a required evidence layer for the hardest challenge",
+      "sequence minimization became mandatory for later confirmation"
+    ],
+    "successful_counterexample_minimization": 3,
+    "time_compute_seconds": 0.12
+  },
+  "missed": 0,
+  "pass_rate": 1.0,
+  "passed": 3
+}

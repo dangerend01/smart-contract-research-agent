@@ -1,0 +1,17 @@
+{
+  "benchmark": "hard-phase3",
+  "challenge_count": 3,
+  "challenge_ids": [
+    "PH3-008",
+    "PH3-009",
+    "PH3-010"
+  ],
+  "difficulty_band": "phase-3-hard",
+  "difficulty_levels": [
+    "LEVEL_8",
+    "LEVEL_9",
+    "LEVEL_10"
+  ],
+  "notes": "Phase 3 measures real blind research performance against harder mechanisms, including cross-function state drift, sequence-sensitive gas amplification, and EVM/assembly-level data coupling.",
+  "public_only": true
+}

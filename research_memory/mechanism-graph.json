@@ -1,0 +1,94 @@
+{
+  "attack_surfaces": {
+    "participant growth": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "contracts": {
+    "LocalDoSGasDemo": {
+      "functions": [
+        "addParticipant",
+        "processAll"
+      ]
+    }
+  },
+  "edges": {
+    "LocalDoSGasDemo": {
+      "addParticipant": {
+        "attack_surfaces": [
+          "participant growth"
+        ],
+        "inputs": [
+          "address[] participants",
+          "participants length"
+        ],
+        "invariants": [
+          "gas should not scale with attacker-controlled state"
+        ],
+        "state_variables": [
+          "participants",
+          "processed"
+        ]
+      },
+      "processAll": {
+        "attack_surfaces": [
+          "participant growth"
+        ],
+        "inputs": [
+          "address[] participants",
+          "participants length"
+        ],
+        "invariants": [
+          "gas should not scale with attacker-controlled state"
+        ],
+        "state_variables": [
+          "participants",
+          "processed"
+        ]
+      }
+    }
+  },
+  "experiments": {},
+  "functions": {
+    "addParticipant": {
+      "contract": "LocalDoSGasDemo"
+    },
+    "processAll": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "hypotheses": {
+    "Unbounded iteration over user-supplied state creates gas griefing -> failure-path variant": {
+      "contract": "LocalDoSGasDemo"
+    },
+    "Unbounded iteration over user-supplied state creates gas griefing -> nested iteration variant": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "inputs": {
+    "address[] participants": {
+      "contract": "LocalDoSGasDemo"
+    },
+    "participants length": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "invariants": {
+    "gas should not scale with attacker-controlled state": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "observed_mechanisms": {
+    "state growth increases gas": {
+      "contract": "LocalDoSGasDemo"
+    }
+  },
+  "state_variables": {
+    "participants": {
+      "contract": "LocalDoSGasDemo"
+    },
+    "processed": {
+      "contract": "LocalDoSGasDemo"
+    }
+  }
+}

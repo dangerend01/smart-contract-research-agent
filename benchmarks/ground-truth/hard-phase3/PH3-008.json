@@ -1,0 +1,24 @@
+{
+  "challenge_id": "PH3-008",
+  "difficulty": "LEVEL_8",
+  "difficulty_classification": "multi-function state drift / history-sensitive loop",
+  "evidence_requirements": [
+    "compare priming() then trigger() versus trigger() alone",
+    "show the bound is driven by historical state values",
+    "demonstrate larger total cost after a more expensive priming sequence"
+  ],
+  "invariant": "the later routine should not consume hidden work created by a prior call sequence",
+  "mechanism": "cross-function historical loop entanglement",
+  "mechanism_fingerprint": "cross-function-state->loop-bound-with-history",
+  "reproducible_proof": {
+    "expected_result": "larger historical state yields a higher loop bound and more total work",
+    "steps": [
+      "priming(3, 5)",
+      "trigger()",
+      "priming(10, 20)",
+      "trigger()",
+      "compare gas and total"
+    ]
+  },
+  "root_cause": "priming() stores historical values in epoch, last, and backlog. trigger() then uses epoch + last as the loop bound and iterates over backlog, turning earlier state into hidden work that is only visible when the sequence is enforced across calls."
+}

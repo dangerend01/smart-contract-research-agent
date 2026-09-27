@@ -1,0 +1,51 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis",
+    "trace-differential-analysis",
+    "compiler-differential-analysis",
+    "semantic-differential-analysis"
+  ],
+  "available_functions": [
+    "record",
+    "evaluate"
+  ],
+  "challenge_id": "PH4-012",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "StateHistoryDependentBehavior",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract StateHistoryDependentBehavior {\n    uint256 public score;\n    uint256 public window;\n    uint256[] internal history;\n\n    function record(uint256 value) external {\n        history.push(value);\n        window += value;\n    }\n\n    function evaluate(uint256 bias) external {\n        uint256 bound = window + bias;\n        for (uint256 i = 0; i < history.length; ++i) {\n            bound += history[i] % 19;\n        }\n\n        for (uint256 i = 0; i < bound; ++i) {\n            score += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_9",
+  "difficulty_classification": "history-sensitive execution and state carry",
+  "expected_evidence_requirements": [
+    "historical state trace",
+    "sequence minimization",
+    "algorithmic bound derivation",
+    "runtime comparison across histories"
+  ],
+  "family": "state-history-dependent-behavior",
+  "initial_state": {
+    "score": 0,
+    "window": 0
+  },
+  "invariant": "evaluation cost should not unexpectedly become a function of the entire stored call history and a broader repeated state machine",
+  "mechanism_fingerprint": "history-growth->nonlinear-bound-amplification",
+  "public_objective": "Find the precise sequence-dependent amplification and explain why a later call becomes more expensive after earlier history was accumulated.",
+  "resource_model": {
+    "gas": "sequence-sensitive state amplification",
+    "notes": "history and window are folded into a later bound"
+  },
+  "seed": 4012
+}

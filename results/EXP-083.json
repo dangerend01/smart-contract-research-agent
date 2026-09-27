@@ -1,0 +1,41 @@
+{
+  "classification": "confirmed_mechanism",
+  "evidence": {
+    "conclusion": "Gas consumption increased materially with attacker-controlled state growth in the local doS/dos demonstration.",
+    "logs": [
+      "small=179566",
+      "medium=560000",
+      "large=697466"
+    ],
+    "test_name": "EXP-083Test"
+  },
+  "experiment_id": "EXP-083",
+  "feedback": {
+    "classification": "confirmed_mechanism",
+    "confirmed_observations": [
+      "Gas consumption increases with attacker-controlled state growth in the local experiment."
+    ],
+    "disproven_assumptions": [],
+    "experiment_id": "EXP-083",
+    "human_review_required": true,
+    "possible_follow_up_hypotheses": [
+      "Measure boundary values beyond the current state sizes.",
+      "Inspect whether the cost is dominated by loop length or other storage effects."
+    ],
+    "unexplored_parameters": [
+      "very large state sizes",
+      "repeated victim-call sequences",
+      "mixed attacker inputs"
+    ]
+  },
+  "hypothesis_id": "H-001",
+  "measurements": {
+    "counterexamples": [],
+    "fuzz_cases": 25,
+    "growth_pattern": "large > medium > small",
+    "large_state": 697466,
+    "medium_state": 560000,
+    "small_state": 179566
+  },
+  "target_contract": "src/LocalDoSGasDemo.sol"
+}

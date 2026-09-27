@@ -1,0 +1,52 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis",
+    "trace-differential-analysis",
+    "compiler-differential-analysis",
+    "semantic-differential-analysis"
+  ],
+  "available_functions": [
+    "seed",
+    "execute"
+  ],
+  "challenge_id": "PH4-014",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": true
+  },
+  "contract_name": "AbiStorageEdgeCases",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract AbiStorageEdgeCases {\n    uint256 public slotA;\n    uint256 public slotB;\n    uint256 public processed;\n\n    function seed(uint256 left, uint256 right) external {\n        slotA = left;\n        slotB = right;\n        assembly {\n            sstore(0x40, left)\n            sstore(0x41, right)\n        }\n    }\n\n    function execute(bytes calldata data) external {\n        uint256 offset;\n        assembly {\n            offset := calldataload(4)\n        }\n        uint256 bound = (slotA + slotB + offset) % 257;\n        if (data.length > 0) {\n            bound += uint256(uint8(data[0]));\n        }\n        for (uint256 i = 0; i < bound; ++i) {\n            processed += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_11",
+  "difficulty_classification": "ABI + storage + assembly + bytecode semantics",
+  "expected_evidence_requirements": [
+    "calldata trace",
+    "storage interaction analysis",
+    "assembly or Yul explanation",
+    "bytecode/opcode evidence when needed"
+  ],
+  "family": "abi-storage-edge-cases",
+  "initial_state": {
+    "processed": 0,
+    "slotA": 0,
+    "slotB": 0
+  },
+  "invariant": "execution should not silently depend on ABI-level raw calldata and hidden storage-slot behavior in a way that source-level reasoning cannot explain",
+  "mechanism_fingerprint": "calldata+assembly-slot-aliasing->resource-amplification",
+  "public_objective": "Explain the hidden coupling between ABI-level input interpretation and storage representation, and show how the actual cost is determined by more than source semantics reveal.",
+  "resource_model": {
+    "gas": "calldata-and-storage-derived work expansion",
+    "notes": "execute() combines raw calldataload offset with assembly-written slots and leading calldata bytes"
+  },
+  "seed": 4014
+}

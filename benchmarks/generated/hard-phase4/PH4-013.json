@@ -1,0 +1,51 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis",
+    "trace-differential-analysis",
+    "compiler-differential-analysis",
+    "semantic-differential-analysis"
+  ],
+  "available_functions": [
+    "add",
+    "drain"
+  ],
+  "challenge_id": "PH4-013",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "ResourceAmplification",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract ResourceAmplification {\n    uint256[] private tracker;\n    uint256 public consumed;\n\n    function add(uint256 value) external {\n        if (value > 0) {\n            tracker.push(value);\n            consumed += value;\n        }\n    }\n\n    function drain() external {\n        uint256 bound = tracker.length;\n        for (uint256 i = 0; i < bound; ++i) {\n            for (uint256 j = 0; j < tracker[i] % 17; ++j) {\n                consumed += 1;\n            }\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_10",
+  "difficulty_classification": "resource amplification + state growth + multi-layer observation",
+  "expected_evidence_requirements": [
+    "growth trace",
+    "loop-bound analysis",
+    "resource comparison across different histories",
+    "counterexample minimization"
+  ],
+  "family": "resource-amplification",
+  "initial_state": {
+    "consumed": 0,
+    "tracker": []
+  },
+  "invariant": "small attacker-controlled inputs should not create a disproportionate later resource cost when the system processes stored state",
+  "mechanism_fingerprint": "state-growth->nested-loop-amplification",
+  "public_objective": "Explain why a later drain() becomes unexpectedly expensive after repeated small additions and why the growth is state-dependent rather than constant.",
+  "resource_model": {
+    "gas": "superlinear growth under repeated state accumulation",
+    "notes": "drain() multiplies each stored value by its modulo-derived loop count"
+  },
+  "seed": 4013
+}

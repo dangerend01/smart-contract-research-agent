@@ -1,0 +1,25 @@
+{
+  "challenge_id": "PH3-009",
+  "difficulty": "LEVEL_9",
+  "difficulty_classification": "state history + resource drift + minimized sequence search",
+  "evidence_requirements": [
+    "measure cost across different record() histories",
+    "show the loop bound depends on both window and stored sequence values",
+    "show the need for minimization around the critical historical pattern"
+  ],
+  "invariant": "repeated record() calls should not silently transform a later work loop into a sequence-dependent amplification path",
+  "mechanism": "history-driven mining drift",
+  "mechanism_fingerprint": "history-growth->nonlinear-bound-amplification",
+  "reproducible_proof": {
+    "expected_result": "different accumulated histories produce materially different mine() costs and score growth",
+    "steps": [
+      "record(3)",
+      "record(9)",
+      "mine(0)",
+      "record(18)",
+      "mine(7)",
+      "compare gas and score"
+    ]
+  },
+  "root_cause": "record() accumulates a historical sequence into window and history. mine() then sets a bound from window + bias and adds each historical value modulo 13, so the cost depends on the exact accumulated sequence and ordering of prior calls."
+}

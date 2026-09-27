@@ -1,0 +1,19 @@
+[
+  {
+    "affected_functions": [
+      "contribute",
+      "checkpoint",
+      "settle",
+      "claim"
+    ],
+    "expected_security_invariant": "A single user should not be able to make another user's operation excessively expensive.",
+    "id": "H-001",
+    "mechanism": "An attacker appends many entries to a dynamic array or mapping-backed collection, then invokes a function that iterates over the full collection during a victim action.",
+    "novelty_notes": "Similar to previously seen local hypothesis; duplicate classification applied.",
+    "predicted_failure_condition": "As the collection grows, each call to the expensive function consumes increasing gas and may become unusable for legitimate users.",
+    "required_attacker_capability": "Add entries to a stateful collection or trigger growth of a dynamic list before another user calls the expensive path.",
+    "status": "duplicate",
+    "test_idea": "Measure gas for a fixed operation as the number of attacker-controlled entries increases and assert that cost grows materially with the collection length.",
+    "title": "Unbounded iteration over user-supplied state creates gas griefing"
+  }
+]

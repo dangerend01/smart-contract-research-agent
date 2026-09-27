@@ -1,0 +1,20 @@
+{
+  "actual_result": "measured in the local Foundry test suite",
+  "attacker_actions": [
+    "addParticipant(...) for many addresses"
+  ],
+  "conclusion": "The demonstration validates that unbounded iteration over attacker-created entries materially increases gas cost.",
+  "contract": "targets/directory-blind-ctf-b248c64792a6/source/BlindStateHistory.sol",
+  "evidence": "See tests/DoSGasGriefingDemo.t.sol and the local forge test output.",
+  "expected_result": "gas cost rises materially as the attack-controlled collection length grows.",
+  "hypothesis_id": "H-001",
+  "measurements": {
+    "large_case": "250 entries",
+    "small_case": "50 entries"
+  },
+  "pass": true,
+  "setup": "Deploy local contract and populate attacker-controlled collection with increasing lengths.",
+  "victim_actions": [
+    "processAll()"
+  ]
+}

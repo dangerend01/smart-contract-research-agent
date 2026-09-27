@@ -1,0 +1,28 @@
+{
+  "challenge_count": 3,
+  "challenges": [
+    {
+      "challenge_id": "HB-001",
+      "difficulty": "INTERMEDIATE",
+      "family": "sequence-dependent-loop-amplification",
+      "mechanism_fingerprint": "state-history->loop-bound-coupling",
+      "seed": 1101
+    },
+    {
+      "challenge_id": "HB-002",
+      "difficulty": "INTERMEDIATE",
+      "family": "queue-growth-gas-amplifier",
+      "mechanism_fingerprint": "state-growth->loop-amplification",
+      "seed": 1102
+    },
+    {
+      "challenge_id": "HB-003",
+      "difficulty": "ADVANCED",
+      "family": "packed-storage-drift",
+      "mechanism_fingerprint": "storage-layout->state-derived-loop-bound",
+      "seed": 1103
+    }
+  ],
+  "difficulty_band": "phase-1-hard",
+  "generated_at": "local"
+}

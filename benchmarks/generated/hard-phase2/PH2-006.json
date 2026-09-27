@@ -1,0 +1,47 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "fuzzing-analysis"
+  ],
+  "available_functions": [
+    "record",
+    "sweep"
+  ],
+  "challenge_id": "PH2-006",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "SequenceHistoryGasDrift",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract SequenceHistoryGasDrift {\n    uint256 public score;\n    uint256 public window;\n    uint256[] internal history;\n\n    function record(uint256 value) external {\n        history.push(value);\n        window += value;\n    }\n\n    function sweep(uint256 bias) external {\n        uint256 bound = window + bias;\n        for (uint256 i = 0; i < history.length; ++i) {\n            bound += history[i] % 17;\n        }\n\n        for (uint256 i = 0; i < bound; ++i) {\n            score += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_6",
+  "difficulty_classification": "sequence/search/history+gas",
+  "expected_evidence_requirements": [
+    "state-history trace",
+    "sequence mutation evidence",
+    "gas scaling proof across different prior call orders",
+    "call-order sensitivity explanation"
+  ],
+  "family": "sequence-history-gas-drift",
+  "initial_state": {
+    "score": 0,
+    "window": 0
+  },
+  "invariant": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound",
+  "mechanism_fingerprint": "state-history->nonlinear-loop-growth",
+  "public_objective": "Find the sequence/state interaction that turns the later sweep() cost into a function of prior recorded values and ordering.",
+  "resource_model": {
+    "gas": "history_driven_and_sequence_sensitive",
+    "notes": "history values are accumulated and then folded into the sweep loop bound"
+  },
+  "seed": 2006
+}

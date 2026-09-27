@@ -1,0 +1,14 @@
+{
+  "challenge_id": "PH4-014",
+  "difficulty": "LEVEL_11",
+  "difficulty_classification": "ABI + storage + assembly + bytecode semantics",
+  "evidence_requirements": [
+    "inspect assembly and calldata reading",
+    "show raw-value coupling between slot data and calldata",
+    "confirm with bytecode/opcode or trace evidence"
+  ],
+  "invariant": "execution cost should not silently depend on a hidden ABI and storage interaction that source-level reasoning cannot see",
+  "mechanism": "ABI/storage edge case with assembly interaction",
+  "mechanism_fingerprint": "calldata+assembly-slot-aliasing->resource-amplification",
+  "root_cause": "seed() writes storage values in both Solidity and assembly, while execute() derives the bound from a raw calldata offset and leading byte plus those storage values. The effective behavior is hidden behind ABI and EVM representation-level semantics."
+}

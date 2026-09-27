@@ -1,0 +1,18 @@
+{
+  "challenge_id": "C-LEVEL_3-002",
+  "difficulty": "LEVEL_3",
+  "generation_seed": 44,
+  "ground_truth": {
+    "affected_functions": [
+      "first",
+      "second"
+    ],
+    "difficulty_reason": "The issue relies on ordered function interaction and state history rather than a classic isolated bug.",
+    "failure_mode": "stateful cross-function amplification",
+    "invariant": "sequence of operations should not create unexpected resource amplification",
+    "layer": "source-and-sequence",
+    "mechanism": "cross-function state dependency",
+    "resource_affected": "gas",
+    "root_cause": "state from one function modifies the loop bounds of another function and turns a bounded operation into a state-dependent amplification path"
+  }
+}

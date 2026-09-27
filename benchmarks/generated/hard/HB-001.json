@@ -1,0 +1,39 @@
+{
+  "available_functions": [
+    "prepare",
+    "run"
+  ],
+  "challenge_id": "HB-001",
+  "compiler_configuration": {
+    "optimizer": false,
+    "via_ir": false
+  },
+  "contract_name": "SequenceAmplifier",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract SequenceAmplifier {\n    uint256 public prepared;\n    uint256 public processed;\n\n    function prepare(uint256 delta) external {\n        require(delta < 1_000_000, \"delta out of range\");\n        prepared += delta;\n    }\n\n    function run() external {\n        uint256 count = prepared;\n        for (uint256 i = 0; i < count; ++i) {\n            processed += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "INTERMEDIATE",
+  "difficulty_classification": "multi-function/state-history",
+  "expected_evidence_requirements": [
+    "ordered call trace",
+    "state before/after snapshot",
+    "invariant statement",
+    "explanation of loop-bound dependency"
+  ],
+  "family": "sequence-dependent-loop-amplification",
+  "initial_state": {
+    "prepared": 0,
+    "processed": 0
+  },
+  "invariant": "execution cost should not be driven by unrelated historical state drift",
+  "mechanism_fingerprint": "state-history->loop-bound-coupling",
+  "public_objective": "Explain why the execution cost changes after a specific sequence of calls.",
+  "resource_model": {
+    "gas": "state_history_dependent",
+    "notes": "the loop bound derives from prior state"
+  },
+  "seed": 1101
+}

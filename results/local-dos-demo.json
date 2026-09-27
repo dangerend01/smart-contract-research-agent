@@ -1,0 +1,6 @@
+{
+  "contract": "targets/directory-blind-ctf-b248c64792a6/source/BlindStateHistory.sol",
+  "evidence": "Local Foundry test run in the repository.",
+  "status": "pass",
+  "summary": "The local DoS/gas-griefing demonstration demonstrates linear growth in cost with attack-controlled participant count."
+}

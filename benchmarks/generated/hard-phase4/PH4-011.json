@@ -1,0 +1,52 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "yul-ir-analysis",
+    "bytecode-opcode-analysis",
+    "trace-differential-analysis",
+    "compiler-differential-analysis",
+    "semantic-differential-analysis"
+  ],
+  "available_functions": [
+    "prime",
+    "settle"
+  ],
+  "challenge_id": "PH4-011",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "CrossFunctionEmergentBehavior",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract CrossFunctionEmergentBehavior {\n    uint256 public epoch;\n    uint256 public total;\n    uint256[] internal backlog;\n    bool public enabled;\n\n    function prime(uint256 seed, uint256 delta) external {\n        enabled = true;\n        epoch = seed + delta;\n        backlog.push(seed);\n        backlog.push(delta);\n    }\n\n    function settle() external {\n        if (!enabled) return;\n\n        uint256 bound = epoch + backlog.length;\n        for (uint256 i = 0; i < bound; ++i) {\n            total += backlog[i % backlog.length];\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_8",
+  "difficulty_classification": "cross-function state carry + emergent loop amplification",
+  "expected_evidence_requirements": [
+    "state-history trace",
+    "ordered call sequence",
+    "loop-bound derivation",
+    "minimized reproducer"
+  ],
+  "family": "cross-function-emergent-behavior",
+  "initial_state": {
+    "enabled": false,
+    "epoch": 0,
+    "total": 0
+  },
+  "invariant": "resource use should not silently depend on earlier state history when the later function appears to do a simple bounded loop",
+  "mechanism_fingerprint": "cross-function-state->loop-bound-emergence",
+  "public_objective": "Explain why later processing becomes more expensive after a specific state-history sequence and why this is an emergent cross-function mechanism.",
+  "resource_model": {
+    "gas": "history-dependent loop amplification",
+    "notes": "prime() populates state, settle() derives its bound from earlier values"
+  },
+  "seed": 4011
+}

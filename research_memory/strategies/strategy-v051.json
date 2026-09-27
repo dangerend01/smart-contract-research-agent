@@ -1,0 +1,13 @@
+{
+  "learning_signals": [
+    {
+      "challenge_id": "HB-001",
+      "finding_status": "FALSE_POSITIVE",
+      "lesson": "A plausible mechanism must still satisfy the invariant and reproducibility gate before it is treated as confirmed.",
+      "root_cause": "A previously stored value changes the future loop bound, so the execution cost is a function of prior state history rather than a single fixed bound."
+    }
+  ],
+  "objective": "Evidence-first deep researcher v2: prioritize reproducible evidence, invariant checks, and root-cause quality over plausible mechanism names.",
+  "strategy_version": "strategy-v051",
+  "timestamp": "local"
+}

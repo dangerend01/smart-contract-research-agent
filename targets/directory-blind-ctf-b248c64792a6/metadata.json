@@ -1,0 +1,24 @@
+{
+  "build_status": "OK",
+  "commit": null,
+  "compiler_requirements": [
+    "^0.8.24"
+  ],
+  "compiler_version": "0.8.24",
+  "contract_names": [
+    "BlindStateHistory",
+    "BlindStateHistoryTest"
+  ],
+  "created_at": "2026-09-27T18:18:40.036251+00:00",
+  "license": "unknown",
+  "live_transaction_allowed": false,
+  "local_only": true,
+  "network_policy": "LOCAL_ONLY",
+  "original_ref": "/tmp/blind_ctf",
+  "repository": "/tmp/blind_ctf",
+  "research_status": "READY",
+  "source_root": "/workspaces/smart-contract-research-agent/targets/directory-blind-ctf-b248c64792a6/source",
+  "source_type": "directory",
+  "target_id": "directory-blind-ctf-b248c64792a6",
+  "ui_port": 8000
+}

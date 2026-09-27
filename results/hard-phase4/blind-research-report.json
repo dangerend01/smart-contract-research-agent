@@ -1,0 +1,34 @@
+{
+  "benchmark": "hard-phase4",
+  "researcher_mode": "blind-public-only",
+  "results": [
+    {
+      "challenge_id": "PH4-011",
+      "depth": "trace-differential-analysis",
+      "family": "cross-function-emergent-behavior",
+      "invariants": 2,
+      "questions": 16
+    },
+    {
+      "challenge_id": "PH4-012",
+      "depth": "trace-differential-analysis",
+      "family": "state-history-dependent-behavior",
+      "invariants": 2,
+      "questions": 16
+    },
+    {
+      "challenge_id": "PH4-013",
+      "depth": "trace-differential-analysis",
+      "family": "resource-amplification",
+      "invariants": 2,
+      "questions": 16
+    },
+    {
+      "challenge_id": "PH4-014",
+      "depth": "trace-differential-analysis",
+      "family": "abi-storage-edge-cases",
+      "invariants": 2,
+      "questions": 16
+    }
+  ]
+}

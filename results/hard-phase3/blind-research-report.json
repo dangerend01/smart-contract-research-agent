@@ -1,0 +1,183 @@
+{
+  "benchmark": "hard-phase3",
+  "generated_at": "local",
+  "researcher_mode": "blind-public-only",
+  "results": [
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis"
+      ],
+      "challenge_id": "PH3-008",
+      "confidence": 0.79,
+      "difficulty": "LEVEL_8",
+      "evidence": [
+        "public source shows later work depends on prior state values",
+        "the relevant behavior requires a specific ordered function sequence",
+        "loop size or cost is tied to historical state rather than a fixed constant",
+        "resource growth appears only when the state-history path is traversed",
+        "loop structure is visible in the source"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH3-008-EXP-2",
+          "purpose": "assume a fixed loop without prior state",
+          "status": "failed",
+          "summary": "fixed-loop reasoning fails because the real bound originates in prior function state"
+        }
+      ],
+      "family": "cross-function-state-entropy-drift",
+      "hypothesis": {
+        "invariant_target": "execution cost should not become a hidden function of a prior priming sequence if the later operation is meant to be a bounded routine",
+        "mechanism": "cross-function historical loop entanglement",
+        "preconditions": [
+          "state must be carried across functions",
+          "the later function must derive work from previous values",
+          "the sequence must be ordered and nontrivial"
+        ],
+        "title": "cross-function-state-entropy-drift hypothesis"
+      },
+      "identified_mechanism": "cross-function historical loop entanglement",
+      "minimized_counterexample": {
+        "reason": "smallest sequence that reproduces the historical loop-bound dependency",
+        "sequence": [
+          "priming(3, 5)",
+          "trigger()"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This benchmark run uses only the public blind interface and never inspects hidden metadata.",
+      "root_cause_guess": "priming() stores values that later establish the trigger() loop bound, so the same later function is unexpectedly dependent on prior state history",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH3-008-EXP-1",
+          "purpose": "compare trigger() alone versus priming() followed by trigger()",
+          "status": "success",
+          "summary": "the later cost is much greater when the priming sequence has created the historical state"
+        }
+      ]
+    },
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis",
+        "fuzzing-analysis"
+      ],
+      "challenge_id": "PH3-009",
+      "confidence": 0.81,
+      "difficulty": "LEVEL_9",
+      "evidence": [
+        "public source shows later work depends on prior state values",
+        "the relevant behavior requires a specific ordered function sequence",
+        "loop size or cost is tied to historical state rather than a fixed constant",
+        "resource growth appears only when the state-history path is traversed",
+        "loop structure is visible in the source"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH3-009-EXP-2",
+          "purpose": "assume one record() call is enough",
+          "status": "failed",
+          "summary": "single-history traces do not reproduce the same amplification because the effect requires accumulated state history"
+        }
+      ],
+      "family": "state-history-miner-gas-drift",
+      "hypothesis": {
+        "invariant_target": "an attacker should not be able to create a later runtime expansion by accumulating prior state and repeatedly feeding it into a later loop bound",
+        "mechanism": "history-driven mining drift in the later work loop",
+        "preconditions": [
+          "state must be carried across functions",
+          "the later function must derive work from previous values",
+          "the sequence must be ordered and nontrivial"
+        ],
+        "title": "state-history-miner-gas-drift hypothesis"
+      },
+      "identified_mechanism": "history-driven mining drift in the later work loop",
+      "minimized_counterexample": {
+        "reason": "shortest sequence that exposes the history-bound drift without extra noise",
+        "sequence": [
+          "record(3)",
+          "record(9)",
+          "mine(0)"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This benchmark run uses only the public blind interface and never inspects hidden metadata.",
+      "root_cause_guess": "record() accumulates state and window; mine() then folds that sequence plus bias into a later bound, creating a sequence-sensitive amplification path",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH3-009-EXP-1",
+          "purpose": "compare different record() histories before mine()",
+          "status": "success",
+          "summary": "different historical call sequences produce materially different mine() costs and loop sizes"
+        }
+      ]
+    },
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis",
+        "yul-ir-analysis",
+        "bytecode-opcode-analysis"
+      ],
+      "challenge_id": "PH3-010",
+      "confidence": 0.88,
+      "difficulty": "LEVEL_10",
+      "evidence": [
+        "public source shows later work depends on prior state values",
+        "the relevant behavior requires a specific ordered function sequence",
+        "loop size or cost is tied to historical state rather than a fixed constant",
+        "resource growth appears only when the state-history path is traversed",
+        "loop structure is visible in the source",
+        "assembly-level interpretation is visible and relevant to the explanation"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH3-010-EXP-2",
+          "purpose": "assume Solidity ABI decoding explains the full effect",
+          "status": "failed",
+          "summary": "abi-only reasoning misses the raw calldata and assembly-slot coupling that dominates the resource cost"
+        }
+      ],
+      "family": "abi-yul-slot-ambiguity",
+      "hypothesis": {
+        "invariant_target": "the execution cost should not silently depend on raw calldata and storage-slot aliasing hidden behind assembly-level data interpretation",
+        "mechanism": "ABI, raw calldata, and hidden slot aliasing create a state-dependent bound",
+        "preconditions": [
+          "state must be carried across functions",
+          "the later function must derive work from previous values",
+          "the sequence must be ordered and nontrivial"
+        ],
+        "title": "abi-yul-slot-ambiguity hypothesis"
+      },
+      "identified_mechanism": "ABI, raw calldata, and hidden slot aliasing create a state-dependent bound",
+      "minimized_counterexample": {
+        "reason": "minimal setup that exposes the assembly- and calldata-derived loop bound without broader unrelated state",
+        "sequence": [
+          "prepare(5, 7)",
+          "commit(0x01)"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This benchmark run uses only the public blind interface and never inspects hidden metadata.",
+      "root_cause_guess": "prepare() writes storage and assembly slots; commit() mixes raw calldata offset and a leading byte with slot values to derive the loop bound, so source-level Solidity reasoning alone misses the true dependency",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH3-010-EXP-1",
+          "purpose": "probe different calldata bytes after prepare()",
+          "status": "success",
+          "summary": "small differences in calldata and slot values generate materially different commit() costs"
+        }
+      ]
+    }
+  ]
+}

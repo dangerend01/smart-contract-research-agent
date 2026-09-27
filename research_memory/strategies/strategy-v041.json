@@ -1,0 +1,27 @@
+{
+  "expected_benefit": "Improve discovery quality by reducing redundant experiments, preserving only reproducible cross-layer mechanisms, and documenting compiler differences without overclaiming vulnerabilities.",
+  "observed_evidence": [
+    "Phase 4 challenge families are sensitive to state history and storage boundaries under local execution.",
+    "Compiler and bytecode differences are present for the selected local builds but require behavioral evidence before being treated as vulnerabilities.",
+    "The highest-value frontier is the combination of state-history, storage-slot semantics, and compiler-sensitive control flow."
+  ],
+  "previous_strategy": "strategy-v040",
+  "proposed_change": "Prioritize compiler-differential and trace-differential experiments only for state-history or ABI/storage-sensitive contracts, and require a minimized reproducer before declaring a security-relevant mechanism.",
+  "reason": "The deep EVM campaign must increase evidence quality instead of increasing raw experiment count; the existing frontier shows the strongest leverage in state-history and storage-sensitive paths.",
+  "resulting_performance": {
+    "bytecode_differences": 8,
+    "challenged_contracts": 4,
+    "compiler_differences": 8,
+    "trace_differences": 4
+  },
+  "run_id": "phase5-deep-evm-research",
+  "tests_performed": [
+    "optimizer-vs-unoptimized comparison",
+    "viaIR-vs-non-viaIR comparison",
+    "opcode hotspot differential",
+    "state-history trace divergence check",
+    "minimized counterexample derivation"
+  ],
+  "timestamp": "2026-09-27T17:19:24.260123+00:00",
+  "version": "strategy-v041"
+}

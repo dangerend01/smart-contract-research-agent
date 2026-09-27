@@ -1,0 +1,24 @@
+{
+  "challenge_id": "PH3-010",
+  "difficulty": "LEVEL_10",
+  "difficulty_classification": "ABI + EVM + Yul/IR + bytecode depth",
+  "evidence_requirements": [
+    "inspect the assembly block in prepare() and commit()",
+    "show the raw calldata offset is used in the loop bound",
+    "show the payload byte influences the loop bound",
+    "confirm the dependency with Yul/IR or bytecode/opcode evidence"
+  ],
+  "invariant": "a function should not secretly derive its cost from raw calldata and hidden slot aliases unless the system explicitly models those behaviors",
+  "mechanism": "assembly-level slot and calldata coupling",
+  "mechanism_fingerprint": "raw-calldata+assembly-slot-alias->loop-bound-amplification",
+  "reproducible_proof": {
+    "expected_result": "small value or data shifts cause noticeably different work and gas use",
+    "steps": [
+      "prepare(left, right)",
+      "commit(data) with different leading bytes or calldata offsets",
+      "compare gas and processed values",
+      "confirm the loop bound is assembled from both state and ABI-level data"
+    ]
+  },
+  "root_cause": "prepare() writes slotA and slotB while also using assembly to store explicit slots. commit() reads calldataload(4) and combines it with the slot values and a leading byte of calldata to derive the final loop bound. The problem is not visible in pure Solidity semantics alone; it requires Yul/IR or bytecode inspection to see the hidden coupling."
+}

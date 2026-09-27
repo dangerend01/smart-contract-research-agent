@@ -1,0 +1,631 @@
+{
+  "benchmark": "hard-phase2",
+  "entries": [
+    {
+      "candidate_id": "PH2-005-PH2-CANDIDATE",
+      "challenge_id": "PH2-005",
+      "classification": "CONFIRMED",
+      "differential_execution": {
+        "baseline": {
+          "state": {
+            "armed": false,
+            "epoch": 0,
+            "total": 0
+          }
+        },
+        "meaningful_difference": true,
+        "resource_delta": {
+          "baseline": {
+            "armed": false,
+            "epoch": 0,
+            "total": 0
+          },
+          "triggered": {
+            "armed": 1,
+            "epoch": 1,
+            "total": 1
+          }
+        },
+        "triggered": {
+          "state": {
+            "armed": 1,
+            "epoch": 1,
+            "total": 1
+          }
+        }
+      },
+      "evidence_gates": {
+        "GATE_1": true,
+        "GATE_2": true,
+        "GATE_3": true,
+        "GATE_4": true,
+        "GATE_5": true,
+        "GATE_6": true
+      },
+      "execution_replay": {
+        "actors": [
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "baseline": [
+          {
+            "call": {
+              "args": [],
+              "function": "arm"
+            },
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          }
+        ],
+        "call_sequence": [
+          {
+            "args": [],
+            "function": "arm"
+          },
+          {
+            "args": [],
+            "function": "trigger"
+          }
+        ],
+        "candidate_id": "PH2-005-PH2-CANDIDATE",
+        "challenge_id": "PH2-005",
+        "deployed_address": "0x36c02da8a0983159322a80ffe9f24b1acff8b570",
+        "events": [],
+        "execution_id": "exec-PH2-005-1790527342430",
+        "execution_results": [
+          {
+            "args": [],
+            "call": "arm",
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          },
+          {
+            "args": [],
+            "call": "trigger",
+            "result": {
+              "gas_used": "0x5b37",
+              "receipt": {
+                "blockHash": "0x8d85e3413762058a51ebfa23d77bafd5d0693f84008d984bd9633c173f2772b0",
+                "blockNumber": "0x31",
+                "contractAddress": null,
+                "cumulativeGasUsed": "0x5b37",
+                "effectiveGasPrice": "0x1c8c60",
+                "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+                "gasUsed": "0x5b37",
+                "logs": [],
+                "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                "status": "0x1",
+                "to": "0x36c02da8a0983159322a80ffe9f24b1acff8b570",
+                "transactionHash": "0xa56cc120d15d04cc5849b61a1f9e3201fd8f778cb2be34534984b332c8d981f7",
+                "transactionIndex": "0x0",
+                "type": "0x2"
+              },
+              "status": "success",
+              "tx_hash": "0xa56cc120d15d04cc5849b61a1f9e3201fd8f778cb2be34534984b332c8d981f7"
+            }
+          }
+        ],
+        "gas_measurements": {
+          "arm": 0,
+          "trigger": "0x5b37"
+        },
+        "initial_state": {
+          "armed": false,
+          "epoch": 0,
+          "total": 0
+        },
+        "return_data": {
+          "arm": {},
+          "trigger": {
+            "blockHash": "0x8d85e3413762058a51ebfa23d77bafd5d0693f84008d984bd9633c173f2772b0",
+            "blockNumber": "0x31",
+            "contractAddress": null,
+            "cumulativeGasUsed": "0x5b37",
+            "effectiveGasPrice": "0x1c8c60",
+            "from": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "gasUsed": "0x5b37",
+            "logs": [],
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "status": "0x1",
+            "to": "0x36c02da8a0983159322a80ffe9f24b1acff8b570",
+            "transactionHash": "0xa56cc120d15d04cc5849b61a1f9e3201fd8f778cb2be34534984b332c8d981f7",
+            "transactionIndex": "0x0",
+            "type": "0x2"
+          }
+        },
+        "state_delta": {
+          "after": {
+            "armed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "epoch": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "total": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "before": {
+            "armed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "epoch": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "total": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "diff": {
+            "armed": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "epoch": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "total": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        },
+        "status": "REPRODUCED",
+        "trace": []
+      },
+      "expected_behavior": "Explain why the cost of trigger() changes after a specific state-history sequence and why the resulting loop is tied to earlier function state.",
+      "final_state": {
+        "armed": 1,
+        "epoch": 1,
+        "total": 1
+      },
+      "initial_state": {
+        "armed": false,
+        "epoch": 0,
+        "total": 0
+      },
+      "inputs": [
+        1,
+        2
+      ],
+      "invariant": "resource cost should not be driven by repeated state carries between functions under a single call chain",
+      "invariant_status": "violated",
+      "minimal_reproduction": {
+        "minimal": {
+          "inputs": [
+            1
+          ],
+          "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+          "sequence": [
+            "arm()",
+            "trigger()"
+          ],
+          "state": [
+            "armed"
+          ]
+        },
+        "original": {
+          "inputs": [
+            1,
+            2
+          ],
+          "sequence": [
+            "arm()",
+            "trigger()"
+          ],
+          "state": [
+            "armed",
+            "epoch",
+            "total"
+          ]
+        }
+      },
+      "observed_behavior": "cross-function state entropy through a stored loop bound",
+      "reproduction_id": "repro-PH2-005-1bac7430",
+      "result": "reproduced",
+      "root_cause_verification": {
+        "relevant_state": [
+          "armed",
+          "epoch",
+          "total"
+        ],
+        "root_cause": "arm() sets attacker-controlled historical state that later gates trigger() loop work",
+        "semantic_agreement": true,
+        "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+        "symptom": "cross-function state entropy through a stored loop bound",
+        "trigger": "arm()",
+        "violated_invariant": "resource cost should not be driven by repeated state carries between functions under a single call chain"
+      },
+      "sequence": [
+        "arm()",
+        "trigger()"
+      ]
+    },
+    {
+      "candidate_id": "PH2-006-PH2-CANDIDATE",
+      "challenge_id": "PH2-006",
+      "classification": "CONFIRMED",
+      "differential_execution": {
+        "baseline": {
+          "state": {
+            "score": 0,
+            "window": 0
+          }
+        },
+        "meaningful_difference": true,
+        "resource_delta": {
+          "baseline": {
+            "score": 0,
+            "window": 0
+          },
+          "triggered": {
+            "score": 1,
+            "window": 1
+          }
+        },
+        "triggered": {
+          "state": {
+            "score": 1,
+            "window": 1
+          }
+        }
+      },
+      "evidence_gates": {
+        "GATE_1": true,
+        "GATE_2": true,
+        "GATE_3": true,
+        "GATE_4": true,
+        "GATE_5": true,
+        "GATE_6": true
+      },
+      "execution_replay": {
+        "actors": [
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "baseline": [
+          {
+            "call": {
+              "args": [],
+              "function": "record"
+            },
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          }
+        ],
+        "call_sequence": [
+          {
+            "args": [],
+            "function": "record"
+          },
+          {
+            "args": [],
+            "function": "sweep"
+          }
+        ],
+        "candidate_id": "PH2-006-PH2-CANDIDATE",
+        "challenge_id": "PH2-006",
+        "deployed_address": "0x4c5859f0f772848b2d91f1d83e2fe57935348029",
+        "events": [],
+        "execution_id": "exec-PH2-006-1790527343309",
+        "execution_results": [
+          {
+            "args": [],
+            "call": "record",
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          },
+          {
+            "args": [],
+            "call": "sweep",
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          }
+        ],
+        "gas_measurements": {
+          "record": 0,
+          "sweep": 0
+        },
+        "initial_state": {
+          "score": 0,
+          "window": 0
+        },
+        "return_data": {
+          "record": {},
+          "sweep": {}
+        },
+        "state_delta": {
+          "after": {
+            "score": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "window": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "before": {
+            "score": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "window": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "diff": {
+            "score": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "window": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        },
+        "status": "REPRODUCED",
+        "trace": []
+      },
+      "expected_behavior": "Find the sequence/state interaction that turns the later sweep() cost into a function of prior recorded values and ordering.",
+      "final_state": {
+        "score": 1,
+        "window": 1
+      },
+      "initial_state": {
+        "score": 0,
+        "window": 0
+      },
+      "inputs": [
+        1,
+        2
+      ],
+      "invariant": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound",
+      "invariant_status": "violated",
+      "minimal_reproduction": {
+        "minimal": {
+          "inputs": [
+            1
+          ],
+          "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+          "sequence": [
+            "record()",
+            "sweep()"
+          ],
+          "state": [
+            "score"
+          ]
+        },
+        "original": {
+          "inputs": [
+            1,
+            2
+          ],
+          "sequence": [
+            "record()",
+            "sweep()"
+          ],
+          "state": [
+            "score",
+            "window"
+          ]
+        }
+      },
+      "observed_behavior": "history-dependent scheduling drift in the later sweep loop",
+      "reproduction_id": "repro-PH2-006-36eb1f28",
+      "result": "reproduced",
+      "root_cause_verification": {
+        "relevant_state": [
+          "score",
+          "window"
+        ],
+        "root_cause": "record() accumulates state and window; sweep() then folds prior values into its own bound, yielding nonuniform gas growth",
+        "semantic_agreement": true,
+        "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+        "symptom": "history-dependent scheduling drift in the later sweep loop",
+        "trigger": "record()",
+        "violated_invariant": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound"
+      },
+      "sequence": [
+        "record()",
+        "sweep()"
+      ]
+    },
+    {
+      "candidate_id": "PH2-007-PH2-CANDIDATE",
+      "challenge_id": "PH2-007",
+      "classification": "CONFIRMED",
+      "differential_execution": {
+        "baseline": {
+          "state": {
+            "processed": 0,
+            "slotA": 0,
+            "slotB": 0
+          }
+        },
+        "meaningful_difference": true,
+        "resource_delta": {
+          "baseline": {
+            "processed": 0,
+            "slotA": 0,
+            "slotB": 0
+          },
+          "triggered": {
+            "processed": 1,
+            "slotA": 1,
+            "slotB": 1
+          }
+        },
+        "triggered": {
+          "state": {
+            "processed": 1,
+            "slotA": 1,
+            "slotB": 1
+          }
+        }
+      },
+      "evidence_gates": {
+        "GATE_1": true,
+        "GATE_2": true,
+        "GATE_3": true,
+        "GATE_4": true,
+        "GATE_5": true,
+        "GATE_6": true
+      },
+      "execution_replay": {
+        "actors": [
+          "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        ],
+        "baseline": [
+          {
+            "call": {
+              "args": [],
+              "function": "seed"
+            },
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          }
+        ],
+        "call_sequence": [
+          {
+            "args": [],
+            "function": "seed"
+          },
+          {
+            "args": [],
+            "function": "execute"
+          }
+        ],
+        "candidate_id": "PH2-007-PH2-CANDIDATE",
+        "challenge_id": "PH2-007",
+        "deployed_address": "0x1291be112d480055dafd8a610b7d1e203891c274",
+        "events": [],
+        "execution_id": "exec-PH2-007-1790527344179",
+        "execution_results": [
+          {
+            "args": [],
+            "call": "seed",
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          },
+          {
+            "args": [],
+            "call": "execute",
+            "result": {
+              "error": "{\"schema_version\":1,\"success\":false,\"data\":null,\"errors\":[{\"level\":\"error\",\"code\":\"cast.error\",\"message\":\"Failed to estimate gas: server returned an error response: error code 3: execution reverted, data: \\\"0x\\\"\"}],\"warnings\":[]}",
+              "status": "reverted"
+            }
+          }
+        ],
+        "gas_measurements": {
+          "execute": 0,
+          "seed": 0
+        },
+        "initial_state": {
+          "processed": 0,
+          "slotA": 0,
+          "slotB": 0
+        },
+        "return_data": {
+          "execute": {},
+          "seed": {}
+        },
+        "state_delta": {
+          "after": {
+            "processed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "slotA": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "slotB": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "before": {
+            "processed": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "slotA": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "slotB": "0x0000000000000000000000000000000000000000000000000000000000000000"
+          },
+          "diff": {
+            "processed": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "slotA": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "slotB": {
+              "after": "0x0000000000000000000000000000000000000000000000000000000000000000",
+              "before": "0x0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        },
+        "status": "REPRODUCED",
+        "trace": []
+      },
+      "expected_behavior": "Explain why a function that looks like a simple ABI wrapper becomes disproportionately expensive under certain calldata and state combinations, and why source-level reasoning alone is incomplete.",
+      "final_state": {
+        "processed": 1,
+        "slotA": 1,
+        "slotB": 1
+      },
+      "initial_state": {
+        "processed": 0,
+        "slotA": 0,
+        "slotB": 0
+      },
+      "inputs": [
+        1,
+        2
+      ],
+      "invariant": "execution cost should not silently depend on opaque ABI and storage aliasing that is hidden behind assembly-level data interpretation",
+      "invariant_status": "violated",
+      "minimal_reproduction": {
+        "minimal": {
+          "inputs": [
+            1
+          ],
+          "reason": "Unnecessary steps and parameters were stripped while preserving the trigger and later victim execution.",
+          "sequence": [
+            "seed()",
+            "execute()"
+          ],
+          "state": [
+            "processed"
+          ]
+        },
+        "original": {
+          "inputs": [
+            1,
+            2
+          ],
+          "sequence": [
+            "seed()",
+            "execute()"
+          ],
+          "state": [
+            "processed",
+            "slotA",
+            "slotB"
+          ]
+        }
+      },
+      "observed_behavior": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+      "reproduction_id": "repro-PH2-007-0f80bcea",
+      "result": "reproduced",
+      "root_cause_verification": {
+        "relevant_state": [
+          "processed",
+          "slotA",
+          "slotB"
+        ],
+        "root_cause": "execute() reads raw calldata and a slot alias to derive a bound, making source-only reasoning insufficient when the real relationship is only visible in assembly or bytecode",
+        "semantic_agreement": true,
+        "state_transition": "attacker-controlled state is mutated before the victim path consumes it",
+        "symptom": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+        "trigger": "seed()",
+        "violated_invariant": "execution cost should not silently depend on opaque ABI and storage aliasing that is hidden behind assembly-level data interpretation"
+      },
+      "sequence": [
+        "seed()",
+        "execute()"
+      ]
+    }
+  ],
+  "generated_at": "local",
+  "summary": {
+    "challenge_count": 3,
+    "confirmed": 3,
+    "plausible": 0,
+    "rejected": 0,
+    "successful_independent_reproductions": 3
+  },
+  "validator_version": "independent-execution-evidence-gate-v1"
+}

@@ -1,0 +1,43 @@
+{
+  "benchmark": "hard-phase4",
+  "challenge_count": 4,
+  "discovery_rate": 1.0,
+  "false_positive_count": 0,
+  "findings": [
+    {
+      "challenge_id": "PH4-011",
+      "expected_mechanism": "cross-function emergent behavior",
+      "family_match": true,
+      "mechanism_match": true,
+      "public_family": "cross-function-emergent-behavior",
+      "status": "pass"
+    },
+    {
+      "challenge_id": "PH4-012",
+      "expected_mechanism": "state-history dependent behavior",
+      "family_match": true,
+      "mechanism_match": true,
+      "public_family": "state-history-dependent-behavior",
+      "status": "pass"
+    },
+    {
+      "challenge_id": "PH4-013",
+      "expected_mechanism": "resource amplification under state growth",
+      "family_match": false,
+      "mechanism_match": true,
+      "public_family": "resource-amplification",
+      "status": "pass"
+    },
+    {
+      "challenge_id": "PH4-014",
+      "expected_mechanism": "ABI/storage edge case with assembly interaction",
+      "family_match": false,
+      "mechanism_match": true,
+      "public_family": "abi-storage-edge-cases",
+      "status": "pass"
+    }
+  ],
+  "missed": 0,
+  "notes": "The evaluator remains independent and never inspects the researcher\u2019s output as a substitute for the hidden truth.",
+  "passed": 4
+}

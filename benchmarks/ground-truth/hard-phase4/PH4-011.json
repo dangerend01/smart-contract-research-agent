@@ -1,0 +1,14 @@
+{
+  "challenge_id": "PH4-011",
+  "difficulty": "LEVEL_8",
+  "difficulty_classification": "cross-function state carry + emergent loop amplification",
+  "evidence_requirements": [
+    "compare prime() followed by settle() against settle() alone",
+    "show the loop bound depends on both historical state and backlog length",
+    "demonstrate the cross-function composition effect"
+  ],
+  "invariant": "state machine behavior must remain explainable and bounded even when the same values are reused across multiple calls",
+  "mechanism": "cross-function emergent behavior",
+  "mechanism_fingerprint": "cross-function-state->loop-bound-emergence",
+  "root_cause": "prime() populates stored values and later settle() derives its loop bound from epoch and backlog length. The cost is not fixed by a single function; it emerges from earlier state history and later function composition."
+}

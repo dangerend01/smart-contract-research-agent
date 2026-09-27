@@ -1,0 +1,261 @@
+{
+  "challenge": "BlindStateHistory",
+  "deepest_layer_reached": "trace-differential-analysis",
+  "researcher_mode": "blind-public-only",
+  "run_id": "20260927T182211Z",
+  "sequence_mutations": [
+    {
+      "label": "A -> B",
+      "purpose": "establish baseline then consume it",
+      "sequence": [
+        "contribute",
+        "checkpoint"
+      ]
+    },
+    {
+      "label": "A -> B -> A",
+      "purpose": "reapply the earlier state mutation after the second step",
+      "sequence": [
+        "contribute",
+        "checkpoint",
+        "contribute"
+      ]
+    },
+    {
+      "label": "A -> B -> C",
+      "purpose": "follow a baseline-producing step with a changed value and then later consumption",
+      "sequence": [
+        "contribute",
+        "checkpoint",
+        "settle"
+      ]
+    },
+    {
+      "label": "A -> B -> C -> B",
+      "purpose": "reconsume an earlier state after a second mutation and verify whether the reference value is stale",
+      "sequence": [
+        "contribute",
+        "checkpoint",
+        "settle",
+        "claim"
+      ]
+    },
+    {
+      "label": "A -> B -> C -> A",
+      "purpose": "re-enter the baseline-generating function after later state changes",
+      "sequence": [
+        "contribute",
+        "checkpoint",
+        "settle",
+        "claim"
+      ]
+    },
+    {
+      "label": "A -> B -> C -> D",
+      "purpose": "test whether the value derived by the earlier steps is stale before the last consumer runs",
+      "sequence": [
+        "contribute",
+        "checkpoint",
+        "settle",
+        "claim"
+      ]
+    }
+  ],
+  "snapshot_tracking": {
+    "notes": "Snapshot-like variables are tracked as historical references whose value may remain stale across later state transitions.",
+    "snapshot_variables": [
+      "lastSnapshot",
+      "round"
+    ],
+    "state_observations": [
+      {
+        "current_or_historical": "current",
+        "name": "totalContributed",
+        "reads": [
+          "contribute",
+          "checkpoint",
+          "settle",
+          "claim"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "current",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": [
+          "contribute"
+        ]
+      },
+      {
+        "current_or_historical": "current",
+        "name": "rewardPool",
+        "reads": [
+          "settle",
+          "claim"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "current",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": [
+          "settle"
+        ]
+      },
+      {
+        "current_or_historical": "historical",
+        "name": "lastSnapshot",
+        "reads": [
+          "checkpoint",
+          "settle"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "baseline",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": [
+          "checkpoint",
+          "settle"
+        ]
+      },
+      {
+        "current_or_historical": "historical",
+        "name": "round",
+        "reads": [
+          "checkpoint"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "baseline",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": [
+          "checkpoint"
+        ]
+      },
+      {
+        "current_or_historical": "current",
+        "name": "contributed",
+        "reads": [
+          "contribute",
+          "claim"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "state",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": []
+      },
+      {
+        "current_or_historical": "current",
+        "name": "rewardsClaimed",
+        "reads": [
+          "claim"
+        ],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "current",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": []
+      },
+      {
+        "current_or_historical": "current",
+        "name": "cycle",
+        "reads": [],
+        "relationship_to_previous_state": "state is referenced across a later call boundary if it is reused as a baseline",
+        "role": "state",
+        "value_after_call": "updated value after this function mutates the state",
+        "value_before_call": "previous value from storage or prior function execution",
+        "writes": []
+      }
+    ],
+    "state_variables": [
+      "totalContributed",
+      "rewardPool",
+      "lastSnapshot",
+      "round",
+      "contributed",
+      "rewardsClaimed",
+      "cycle"
+    ]
+  },
+  "source_only": true,
+  "stale_state_hypotheses": [
+    {
+      "description": "A state variable that appears to track a checkpoint or baseline may remain stale after a later state mutation and then be consumed by another function.",
+      "related_variables": [
+        "lastSnapshot",
+        "round"
+      ],
+      "risk": "historical reference is reused as if it were current state",
+      "title": "baseline may not represent current state"
+    },
+    {
+      "description": "A checkpoint value can be written in one transition and then read later as if it were a fresh epoch marker even though the underlying totals changed in between.",
+      "related_variables": [
+        "lastSnapshot",
+        "round"
+      ],
+      "risk": "later settlement or accounting consumes historical state instead of the newest value",
+      "title": "checkpoint may preserve older state"
+    },
+    {
+      "description": "The accounting path may compute a delta from an older snapshot, causing previously-accounted growth to be counted again after another valid state-changing sequence.",
+      "related_variables": [
+        "lastSnapshot",
+        "round"
+      ],
+      "risk": "state transition and settlement are incorrectly coupled to stale history",
+      "title": "settlement may reuse stale snapshot information"
+    }
+  ],
+  "state_accounting_invariants": [
+    "lastSnapshot, round must represent the intended current state rather than a stale historical reference",
+    "a baseline should correspond to the intended epoch or round",
+    "already-accounted growth should not be counted again in a later settlement or reward path",
+    "settlement should consume the correct state snapshot for the active sequence",
+    "repeated valid sequences should not retroactively change historical accounting"
+  ],
+  "state_transition_graph": {
+    "edges": [
+      {
+        "relationship": "writes then reads shared state or consumes the prior value",
+        "source": "contribute",
+        "target": "checkpoint"
+      },
+      {
+        "relationship": "writes then reads shared state or consumes the prior value",
+        "source": "checkpoint",
+        "target": "settle"
+      },
+      {
+        "relationship": "writes then reads shared state or consumes the prior value",
+        "source": "settle",
+        "target": "claim"
+      },
+      {
+        "relationship": "transforms state across multiple steps before a later consumer reads it",
+        "source": "contribute",
+        "target": "settle"
+      },
+      {
+        "relationship": "transforms state across multiple steps before a later consumer reads it",
+        "source": "checkpoint",
+        "target": "claim"
+      }
+    ],
+    "functions": [
+      "contribute",
+      "checkpoint",
+      "settle",
+      "claim"
+    ],
+    "notes": "This graph highlights whether a value created by one function becomes an input to a later function or stale reference before another state-changing step.",
+    "state_variables": [
+      "totalContributed",
+      "rewardPool",
+      "lastSnapshot",
+      "round",
+      "contributed",
+      "rewardsClaimed",
+      "cycle"
+    ]
+  }
+}

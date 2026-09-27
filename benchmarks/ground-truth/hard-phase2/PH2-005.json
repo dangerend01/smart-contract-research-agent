@@ -1,0 +1,24 @@
+{
+  "challenge_id": "PH2-005",
+  "difficulty": "LEVEL_5",
+  "difficulty_classification": "cross-function/state-history",
+  "evidence_requirements": [
+    "compare arm(seed, delta) followed by trigger()",
+    "show the loop bound equals epoch from prior state",
+    "demonstrate that the cost scales with the historical drift introduced by arm()"
+  ],
+  "invariant": "state should not carry a hidden loop bound from one function into a later unrelated function call",
+  "mechanism": "cross-function state entropy",
+  "mechanism_fingerprint": "cross-function-state->loop-bound",
+  "reproducible_proof": {
+    "expected_result": "trigger() consumes notably more gas as the historical arm() state grows",
+    "steps": [
+      "arm(3, 5)",
+      "trigger()",
+      "arm(9, 18)",
+      "trigger()",
+      "compare gas and total"
+    ]
+  },
+  "root_cause": "arm() stores a seed and delta that later determine the trigger() loop bound. The state history across functions produces a loop whose length is tied to prior attacker-controlled values instead of an independent bounded operation."
+}

@@ -1,0 +1,18 @@
+{
+  "challenge_id": "C-LEVEL_1-001",
+  "difficulty": "LEVEL_1",
+  "generation_seed": 8,
+  "ground_truth": {
+    "affected_functions": [
+      "addParticipant",
+      "processAll"
+    ],
+    "difficulty_reason": "The issue is local, measurable, and depends on state growth rather than a textbook exploit signature.",
+    "failure_mode": "resource amplification",
+    "invariant": "gas should not scale with attacker-controlled state",
+    "layer": "solidity-source",
+    "mechanism": "state growth increases gas",
+    "resource_affected": "gas",
+    "root_cause": "iteration over attacker-controlled storage grows with participants array length"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "challenge_id": "PH2-007",
+  "difficulty": "LEVEL_7",
+  "difficulty_classification": "abi/evm/yul/bytecode depth",
+  "evidence_requirements": [
+    "inspect the `execute(bytes)` path and raw calldata interpretation",
+    "explain the assembly-level read of calldata and storage writes",
+    "show how the loop bound is derived from slotA, slotB, and offset/data input",
+    "verify with Yul/IR or bytecode/opcode evidence when source is insufficient"
+  ],
+  "invariant": "data-dependent execution should not be hidden behind opaque ABI and EVM-level storage aliasing that only appears when inspecting assembly or bytecode",
+  "mechanism": "ABI/assembly slot-ambiguity amplification",
+  "mechanism_fingerprint": "calldata+assembly+slot_aliasing->resource-amplification",
+  "reproducible_proof": {
+    "expected_result": "small changes in hidden calldata or storage values lead to materially different loop counts and gas usage",
+    "steps": [
+      "seed(left, right)",
+      "execute(data) with a payload that changes the raw calldataload offset or leading byte",
+      "compare gas and processed count",
+      "validate the bound is derived from both state and calldata"
+    ]
+  },
+  "root_cause": "execute() uses assembly to read calldata and also writes storage through an explicit slot alias (0x40 / 0x41), causing a later loop bound to depend on both slot values and calldata-derived offset data. The source-level contract shape hides the real amplification because it is distributed across ABI decoding, raw calldata access, and storage aliasing."
+}

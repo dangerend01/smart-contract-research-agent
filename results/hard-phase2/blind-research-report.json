@@ -1,0 +1,183 @@
+{
+  "benchmark": "hard-phase2",
+  "generated_at": "local",
+  "researcher_mode": "blind-public-only",
+  "results": [
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis"
+      ],
+      "challenge_id": "PH2-005",
+      "confidence": 0.78,
+      "difficulty": "LEVEL_5",
+      "evidence": [
+        "public source indicates later work is derived from prior state",
+        "function ordering matters more than a single isolated call",
+        "sequence and history appear to gate work size",
+        "the gas profile and loop bound vary with earlier state",
+        "loop structure is present in the public source"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH2-005-EXP-2",
+          "purpose": "test same loop without prior arm() state",
+          "status": "failed",
+          "summary": "trigger() alone does not produce the same amplification, confirming the state-history precondition"
+        }
+      ],
+      "family": "cross-function-state-entropy",
+      "hypothesis": {
+        "invariant_target": "resource cost should not be driven by repeated state carries between functions under a single call chain",
+        "mechanism": "cross-function state entropy through a stored loop bound",
+        "preconditions": [
+          "state must be carried across function boundaries",
+          "the later function must derive loop work from prior values",
+          "the attacker-controlled history must be non-trivial"
+        ],
+        "title": "cross-function-state-entropy hypothesis"
+      },
+      "identified_mechanism": "cross-function state entropy through a stored loop bound",
+      "minimized_counterexample": {
+        "reason": "the smallest state-history pattern that reproduces the loop-bound dependency",
+        "sequence": [
+          "arm(3, 5)",
+          "trigger()"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This result is derived from source and sequence analysis only; no hidden evaluator metadata was used.",
+      "root_cause_guess": "arm() sets attacker-controlled historical state that later gates trigger() loop work",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH2-005-EXP-1",
+          "purpose": "verify state retention from one function to the next",
+          "status": "success",
+          "summary": "arm(seed, delta) followed by trigger() increases total work in proportion to the previous state"
+        }
+      ]
+    },
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis",
+        "fuzzing-analysis"
+      ],
+      "challenge_id": "PH2-006",
+      "confidence": 0.82,
+      "difficulty": "LEVEL_6",
+      "evidence": [
+        "public source indicates later work is derived from prior state",
+        "function ordering matters more than a single isolated call",
+        "sequence and history appear to gate work size",
+        "the gas profile and loop bound vary with earlier state",
+        "loop structure is present in the public source"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH2-006-EXP-2",
+          "purpose": "assume one call to record() is sufficient",
+          "status": "failed",
+          "summary": "single-record traces do not reproduce the same growth; the pattern requires accumulated history"
+        }
+      ],
+      "family": "sequence-history-gas-drift",
+      "hypothesis": {
+        "invariant_target": "execution should not become disproportionately expensive simply because the history of prior user calls increased the later loop bound",
+        "mechanism": "history-dependent scheduling drift in the later sweep loop",
+        "preconditions": [
+          "state must be carried across function boundaries",
+          "the later function must derive loop work from prior values",
+          "the attacker-controlled history must be non-trivial"
+        ],
+        "title": "sequence-history-gas-drift hypothesis"
+      },
+      "identified_mechanism": "history-dependent scheduling drift in the later sweep loop",
+      "minimized_counterexample": {
+        "reason": "the shortest sequence that preserves the state-history relationship and reveals the loop-bound drift",
+        "sequence": [
+          "record(5)",
+          "record(10)",
+          "sweep(0)"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This result is derived from source and sequence analysis only; no hidden evaluator metadata was used.",
+      "root_cause_guess": "record() accumulates state and window; sweep() then folds prior values into its own bound, yielding nonuniform gas growth",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH2-006-EXP-1",
+          "purpose": "compare different record() sequences before sweep()",
+          "status": "success",
+          "summary": "different historical sequences produce clearly different sweep() gas and loop counts"
+        }
+      ]
+    },
+    {
+      "analysis_layers_reached": [
+        "source-analysis",
+        "state-control-data-flow",
+        "sequence-search",
+        "gas-resource-analysis",
+        "yul-ir-analysis",
+        "bytecode-opcode-analysis"
+      ],
+      "challenge_id": "PH2-007",
+      "confidence": 0.87,
+      "difficulty": "LEVEL_7",
+      "evidence": [
+        "public source indicates later work is derived from prior state",
+        "function ordering matters more than a single isolated call",
+        "sequence and history appear to gate work size",
+        "the gas profile and loop bound vary with earlier state",
+        "loop structure is present in the public source",
+        "assembly-level data interpretation is visible in the public source"
+      ],
+      "failed_experiments": [
+        {
+          "experiment_id": "PH2-007-EXP-2",
+          "purpose": "assume a purely Solidity-level ABI decode explains the cost",
+          "status": "failed",
+          "summary": "Solidity-level reasoning alone misses the actual EVM-level dependency on raw calldata and storage aliasing"
+        }
+      ],
+      "family": "abi-assembly-slot-ambiguity",
+      "hypothesis": {
+        "invariant_target": "execution cost should not silently depend on opaque ABI and storage aliasing that is hidden behind assembly-level data interpretation",
+        "mechanism": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+        "preconditions": [
+          "state must be carried across function boundaries",
+          "the later function must derive loop work from prior values",
+          "the attacker-controlled history must be non-trivial"
+        ],
+        "title": "abi-assembly-slot-ambiguity hypothesis"
+      },
+      "identified_mechanism": "ABI/calldata-to-storage aliasing hidden behind assembly-level interpretation",
+      "minimized_counterexample": {
+        "reason": "tiny calldata and storage changes reveal the assembly-based amplification without a large setup cost",
+        "sequence": [
+          "seed(2, 3)",
+          "execute(0x01)"
+        ]
+      },
+      "public_only": true,
+      "researcher_notes": "This result is derived from source and sequence analysis only; no hidden evaluator metadata was used.",
+      "root_cause_guess": "execute() reads raw calldata and a slot alias to derive a bound, making source-only reasoning insufficient when the real relationship is only visible in assembly or bytecode",
+      "status": "partial-confirmation",
+      "successful_experiments": [
+        {
+          "experiment_id": "PH2-007-EXP-1",
+          "purpose": "probe differing calldata prefixes and storage values for execute()",
+          "status": "success",
+          "summary": "small data shifts produce materially different costs, indicating a hidden offset/state dependency"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis",
+    "fuzzing-analysis"
+  ],
+  "available_functions": [
+    "record",
+    "mine"
+  ],
+  "challenge_id": "PH3-009",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "StateHistoryMinerGasDrift",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract StateHistoryMinerGasDrift {\n    uint256 public score;\n    uint256 public window;\n    uint256[] internal history;\n\n    function record(uint256 value) external {\n        history.push(value);\n        window += value;\n    }\n\n    function mine(uint256 bias) external {\n        uint256 bound = window + bias;\n        for (uint256 i = 0; i < history.length; ++i) {\n            bound += history[i] % 13;\n        }\n\n        for (uint256 i = 0; i < bound; ++i) {\n            score += 1;\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_9",
+  "difficulty_classification": "state history + resource drift + minimized sequence search",
+  "expected_evidence_requirements": [
+    "ordered history trace",
+    "sequence comparison",
+    "gas scaling across repeated record() calls",
+    "counterexample minimization"
+  ],
+  "family": "state-history-miner-gas-drift",
+  "initial_state": {
+    "score": 0,
+    "window": 0
+  },
+  "invariant": "an attacker should not be able to create a later runtime expansion by accumulating prior state and repeatedly feeding it into a later loop bound",
+  "mechanism_fingerprint": "history-growth->nonlinear-bound-amplification",
+  "public_objective": "Determine what sequence of historical calls makes mine() unexpectedly expensive and why the later bound changes with the previous state.",
+  "resource_model": {
+    "gas": "sequence_sensitive_history_drift",
+    "notes": "window and history values are folded into a growing later bound"
+  },
+  "seed": 3009
+}

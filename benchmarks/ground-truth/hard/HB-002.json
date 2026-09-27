@@ -1,0 +1,24 @@
+{
+  "challenge_id": "HB-002",
+  "difficulty": "INTERMEDIATE",
+  "difficulty_classification": "resource/gas/state-growth",
+  "evidence_requirements": [
+    "enqueue several values and observe settle() cost growth",
+    "state delta showing waiting.length changes before settlement",
+    "explanation that settlement cost scales with queued entries"
+  ],
+  "invariant": "state expansion should not imply unbounded future processing cost for unrelated users",
+  "mechanism": "queue-growth gas amplifier",
+  "mechanism_fingerprint": "state-growth->loop-amplification",
+  "reproducible_proof": {
+    "expected_result": "the larger queue leads to significantly larger gas use for settle()",
+    "steps": [
+      "enroll() several entries",
+      "measure settle() gas",
+      "enroll() more entries",
+      "measure settle() gas again",
+      "confirm larger cost"
+    ]
+  },
+  "root_cause": "the settle() function iterates over every previously accepted entry in waiting. Each new enrollment expands the future processing cost of settle(), creating a direct queue-growth amplification path."
+}

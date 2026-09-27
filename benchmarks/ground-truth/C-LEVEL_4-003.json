@@ -1,0 +1,18 @@
+{
+  "challenge_id": "C-LEVEL_4-003",
+  "difficulty": "LEVEL_4",
+  "generation_seed": 45,
+  "ground_truth": {
+    "affected_functions": [
+      "push",
+      "settle"
+    ],
+    "difficulty_reason": "The mechanism depends on state growth and repeated resource amplification rather than a textbook well-known bug.",
+    "failure_mode": "resource amplification",
+    "invariant": "processing cost should not grow with attacker-controlled queue size",
+    "layer": "source-and-measurement",
+    "mechanism": "state growth increases gas through repeated loop work",
+    "resource_affected": "gas",
+    "root_cause": "settle iterates on queue length and expands additional state writes as the queue grows"
+  }
+}

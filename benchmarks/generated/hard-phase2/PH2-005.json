@@ -1,0 +1,47 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis"
+  ],
+  "available_functions": [
+    "arm",
+    "trigger"
+  ],
+  "challenge_id": "PH2-005",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "CrossFunctionStateEntropy",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract CrossFunctionStateEntropy {\n    uint256 public epoch;\n    uint256 public total;\n    uint256[] internal backlog;\n    bool public armed;\n\n    function arm(uint256 seed, uint256 delta) external {\n        armed = true;\n        epoch = seed + delta;\n        backlog.push(seed);\n        backlog.push(delta);\n    }\n\n    function trigger() external {\n        if (!armed) {\n            return;\n        }\n\n        uint256 limit = epoch;\n        uint256 length = backlog.length;\n        for (uint256 i = 0; i < limit; ++i) {\n            total += backlog[i % length];\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_5",
+  "difficulty_classification": "cross-function/state-history",
+  "expected_evidence_requirements": [
+    "ordered call trace",
+    "state history before and after arm()/trigger()",
+    "control/data-flow explanation",
+    "measurement of the loop bound's dependence on historical values"
+  ],
+  "family": "cross-function-state-entropy",
+  "initial_state": {
+    "armed": false,
+    "epoch": 0,
+    "total": 0
+  },
+  "invariant": "resource cost should not be driven by repeated state carries between functions under a single call chain",
+  "mechanism_fingerprint": "cross-function-state->loop-bound",
+  "public_objective": "Explain why the cost of trigger() changes after a specific state-history sequence and why the resulting loop is tied to earlier function state.",
+  "resource_model": {
+    "gas": "state_history_and_loop_bound_dependent",
+    "notes": "the trigger loop bound derives from a prior arm() value and a stored queue"
+  },
+  "seed": 2005
+}

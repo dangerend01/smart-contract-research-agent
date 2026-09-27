@@ -1,0 +1,48 @@
+{
+  "analysis_layers": [
+    "source-analysis",
+    "state-control-data-flow",
+    "sequence-search",
+    "gas-resource-analysis"
+  ],
+  "available_functions": [
+    "priming",
+    "trigger"
+  ],
+  "challenge_id": "PH3-008",
+  "compiler_configuration": {
+    "optimizer": true,
+    "optimizer_runs": 200,
+    "via_ir": false
+  },
+  "contract_name": "CrossFunctionStateEntropyDrift",
+  "contract_source": "\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.25;\n\ncontract CrossFunctionStateEntropyDrift {\n    uint256 public epoch;\n    uint256 public total;\n    uint256 public last;\n    uint256[] internal backlog;\n    bool public active;\n\n    function priming(uint256 left, uint256 right) external {\n        active = true;\n        epoch = left + right;\n        last = right;\n        backlog.push(left);\n        backlog.push(right);\n    }\n\n    function trigger() external {\n        if (!active) {\n            return;\n        }\n\n        uint256 bound = epoch + last;\n        uint256 length = backlog.length;\n        for (uint256 i = 0; i < bound; ++i) {\n            total += backlog[i % length];\n        }\n    }\n}\n",
+  "deployment_configuration": {
+    "deterministic": true,
+    "local": true,
+    "solc": "0.8.25"
+  },
+  "difficulty": "LEVEL_8",
+  "difficulty_classification": "multi-function state drift / history-sensitive loop",
+  "expected_evidence_requirements": [
+    "ordered call trace",
+    "state history before and after priming/trigger",
+    "bound analysis",
+    "reproduction of larger total cost after a specific sequence"
+  ],
+  "family": "cross-function-state-entropy-drift",
+  "initial_state": {
+    "active": false,
+    "epoch": 0,
+    "last": 0,
+    "total": 0
+  },
+  "invariant": "execution cost should not become a hidden function of a prior priming sequence if the later operation is meant to be a bounded routine",
+  "mechanism_fingerprint": "cross-function-state->loop-bound-with-history",
+  "public_objective": "Find the sequence-dependent cost amplification caused by historical state created on one function and consumed by another.",
+  "resource_model": {
+    "gas": "state_history_dependent",
+    "notes": "later work is derived from historical state created by a prior function"
+  },
+  "seed": 3008
+}

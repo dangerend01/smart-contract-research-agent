@@ -1,0 +1,18 @@
+{
+  "benchmark": "hard-phase4",
+  "challenge_count": 4,
+  "challenge_ids": [
+    "PH4-011",
+    "PH4-012",
+    "PH4-013",
+    "PH4-014"
+  ],
+  "difficulty_band": "phase-4-deep-evm-research",
+  "difficulty_levels": [
+    "LEVEL_8",
+    "LEVEL_9",
+    "LEVEL_10",
+    "LEVEL_11"
+  ],
+  "notes": "Phase 4 is a local deep-EVM research benchmark that measures cross-function composition, state-history dependence, resource amplification, ABI/storage edge cases, and evidence-led escalation to deeper EVM layers."
+}
