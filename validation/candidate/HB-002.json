@@ -67,9 +67,9 @@
     ],
     "candidate_id": "HB-002",
     "challenge_id": "HB-002",
-    "deployed_address": "0xab7b4c595d3ce8c85e16da86630f2fc223b05057",
+    "deployed_address": "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
     "events": [],
-    "execution_id": "exec-HB-002-1790534421659",
+    "execution_id": "exec-HB-002-1790539091952",
     "execution_results": [
       {
         "args": [

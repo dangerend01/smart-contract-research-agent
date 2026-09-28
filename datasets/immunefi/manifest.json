@@ -1,0 +1,10 @@
+{
+  "source": "https://github.com/immunefi-team/Past-Audit-Competitions",
+  "source_type": "public_github_repository",
+  "repository": "immunefi-team/Past-Audit-Competitions",
+  "commit": "8ae02ec4c4b2cc549305cc7915e6c89f6bb41c6d",
+  "download_timestamp": "2026-09-27T23:02:08.224405+00:00",
+  "competition_count": 33,
+  "report_file_count": 1002,
+  "status": "preserved"
+}

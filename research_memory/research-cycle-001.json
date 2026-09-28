@@ -28,14 +28,14 @@
   "executed_experiments": [
     {
       "classification": "confirmed_mechanism",
-      "experiment_id": "EXP-100",
+      "experiment_id": "EXP-109",
       "feedback": {
         "classification": "confirmed_mechanism",
         "confirmed_observations": [
           "Gas consumption increases with attacker-controlled state growth in the local experiment."
         ],
         "disproven_assumptions": [],
-        "experiment_id": "EXP-100",
+        "experiment_id": "EXP-109",
         "human_review_required": true,
         "possible_follow_up_hypotheses": [
           "Measure boundary values beyond the current state sizes.",
@@ -59,14 +59,14 @@
     },
     {
       "classification": "confirmed_mechanism",
-      "experiment_id": "EXP-101",
+      "experiment_id": "EXP-110",
       "feedback": {
         "classification": "confirmed_mechanism",
         "confirmed_observations": [
           "Gas consumption increases with attacker-controlled state growth in the local experiment."
         ],
         "disproven_assumptions": [],
-        "experiment_id": "EXP-101",
+        "experiment_id": "EXP-110",
         "human_review_required": true,
         "possible_follow_up_hypotheses": [
           "Measure boundary values beyond the current state sizes.",
@@ -225,7 +225,7 @@
     }
   ],
   "strategy": "state-growth strategy",
-  "timestamp": "2026-09-27T18:39:53.879266+00:00",
+  "timestamp": "2026-09-27T19:57:27.403765+00:00",
   "unexplored_areas": [
     "state-history strategy",
     "external-call amplification",

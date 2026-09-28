@@ -1,0 +1,184 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ImmunefiSecurityKnowledgeSchema",
+  "type": "object",
+  "properties": {
+    "vulnerability_mechanism": {
+      "type": "string"
+    },
+    "root_cause": {
+      "type": "string"
+    },
+    "affected_state_variables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_functions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "attacker_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "trust_assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cross_function_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cross_contract_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "external_calls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "callbacks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authorization_flow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "accounting_relationships": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "oracle_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "token_interactions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "storage_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "temporal_ordering_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_transaction_sequence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "minimal_reproducible_sequence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "security_consequence": {
+      "type": "string"
+    },
+    "exploitability_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "compiler_solidity_version": {
+      "type": "string"
+    },
+    "evm_related_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_mechanisms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mechanism_combinations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "invariant_violated": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_report": {
+      "type": "object"
+    },
+    "source_code": {
+      "type": "object"
+    },
+    "remediation": {
+      "type": "string"
+    },
+    "generalized_security_reasoning_pattern": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "vulnerability_mechanism",
+    "root_cause",
+    "security_consequence",
+    "source_report"
+  ]
+}

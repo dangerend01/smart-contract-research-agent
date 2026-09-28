@@ -70,9 +70,9 @@
         ],
         "candidate_id": "HB-001",
         "challenge_id": "HB-001",
-        "deployed_address": "0xb06c856c8eabd1d8321b687e188204c1018bc4e5",
+        "deployed_address": "0xdc64a140aa3e981100a9beca4e685f962f0cf6c9",
         "events": [],
-        "execution_id": "exec-HB-001-1790534420580",
+        "execution_id": "exec-HB-001-1790539091075",
         "execution_results": [
           {
             "args": [
@@ -265,9 +265,9 @@
         ],
         "candidate_id": "HB-002",
         "challenge_id": "HB-002",
-        "deployed_address": "0xab7b4c595d3ce8c85e16da86630f2fc223b05057",
+        "deployed_address": "0x5fc8d32690cc91d4c39d9d3abcbd16989f875707",
         "events": [],
-        "execution_id": "exec-HB-002-1790534421659",
+        "execution_id": "exec-HB-002-1790539091952",
         "execution_results": [
           {
             "args": [
@@ -468,9 +468,9 @@
         ],
         "candidate_id": "HB-003",
         "challenge_id": "HB-003",
-        "deployed_address": "0xad523115cd35a8d4e60b3c0953e0e0ac10418309",
+        "deployed_address": "0x0165878a594ca255338adfa4d48449f69242eb8f",
         "events": [],
-        "execution_id": "exec-HB-003-1790534422627",
+        "execution_id": "exec-HB-003-1790539093035",
         "execution_results": [
           {
             "args": [
